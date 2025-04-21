@@ -39,7 +39,6 @@ const FirstPersonCamera = () => {
     };
   }, []);
 
-  // Controle do mouse (olhar ao redor)
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!document.pointerLockElement) return;

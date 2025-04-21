@@ -1,14 +1,13 @@
-import React from "react";
 import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 
-const Rede = () => {
+const HouseWithGarden = () => {
   const { scene } = useGLTF("src/assets/rede.glb");
   return (
-    <RigidBody type="fixed" position={[-100, 0.3, 0]} colliders="trimesh">
+    <RigidBody position={[-100, 200, 0]} colliders="trimesh">
       <primitive object={scene} />
     </RigidBody>
   );
 };
 
-export default Rede;
+export default HouseWithGarden;

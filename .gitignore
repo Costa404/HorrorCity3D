@@ -23,7 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 /src/assets/
-/src/Components/MainCharacter/
+
 
 
 # pasta assets nao vai para o github por ser muito grande

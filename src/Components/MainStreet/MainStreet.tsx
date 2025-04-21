@@ -1,6 +1,6 @@
-import Building from "./BlenderObjects/House";
-import Rede from "./BlenderObjects/Rede";
-import Road from "./BlenderObjects/Road";
+import Building from "./BlenderObjects/Building";
+import HouseWithGarden from "./BlenderObjects/HouseWithGarden";
+
 import { useRef } from "react";
 import * as THREE from "three";
 
@@ -12,7 +12,7 @@ const MainStreet = () => {
       {" "}
       {/* <Road road="src/assets/road.glb" /> */}
       <Building building="src/assets/building1.glb" />
-      <Rede />
+      <HouseWithGarden />
     </group>
   );
 };
