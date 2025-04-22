@@ -4,7 +4,7 @@ import { RigidBody } from "@react-three/rapier";
 const HouseWithGarden = () => {
   const { scene } = useGLTF("src/assets/rede.glb");
   return (
-    <RigidBody position={[-100, 200, 0]} colliders="trimesh">
+    <RigidBody position={[-100, 0, -100]} colliders="trimesh">
       <primitive object={scene} />
     </RigidBody>
   );

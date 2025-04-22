@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Group } from "three";
+import { Group, Vector3 } from "three";
 import { Canvas } from "@react-three/fiber";
 import { Physics, RigidBody } from "@react-three/rapier";
 import { Box, Environment, OrbitControls } from "@react-three/drei";
@@ -10,6 +10,7 @@ import MainCharacter from "./MainCharacter/MainCharacter";
 import FirstPersonCamera from "./Camera/FirstPersonCamera";
 import SkyWithSun from "./Utility/SkyWithSun";
 import CityFloorAndWalls from "./Utility/CityFloorAndWalls";
+import Enemy from "./Enemy/Enemy";
 
 const MyCity = () => {
   const characterRef = useRef<Group | null>(null);
@@ -17,21 +18,15 @@ const MyCity = () => {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <Canvas camera={{ position: [0, 100, 300], fov: 60 }} shadows>
-        <Physics gravity={[0, -9.81, 0]} debug>
-          <Environment files="src/assets/bgMilkyWay.jpg" background />
+        <Physics gravity={[0, -9.81, 0]}>
+          {/* <Environment files="src/assets/bgMilkyWay.jpg" background /> */}
           <SkyWithSun />
           {/* <ThirdPersonCamera target={characterRef} /> */}
-          {/* <FirstPersonCamera /> */}
-          <OrbitControls />
-          <MainCharacter ref={characterRef} position={[0, 0, 0]} />
+          <FirstPersonCamera />
+          {/* <OrbitControls /> */}
+          <MainCharacter ref={characterRef} position={[0, 50, 100]} />
           <MainStreet />
           <CityFloorAndWalls />
-
-          <RigidBody position={[0, 50, 0]} colliders="cuboid" canSleep={false}>
-            <Box>
-              <meshStandardMaterial color={"blue"} />
-            </Box>
-          </RigidBody>
         </Physics>
       </Canvas>
     </div>
@@ -39,3 +34,4 @@ const MyCity = () => {
 };
 
 export default MyCity;
+// near: 1, far: 20000

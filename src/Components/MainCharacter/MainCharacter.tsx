@@ -10,7 +10,7 @@ import { useMovement } from "./Hooks/useMovement";
 const MainCharacter = forwardRef<
   Group,
   { position?: [number, number, number] }
->(({ position = [0, 2, 0] }, ref) => {
+>(({ position = [0, 0, 0] }, ref) => {
   const groupRef = useRef<Group>(null);
   const rigidBodyRef = useRef<RapierRigidBody>(null);
   const { moveCharacter } = useMovement();
@@ -30,7 +30,7 @@ const MainCharacter = forwardRef<
   // Atualiza posição visual com base na física + aplica movimento
   useFrame(() => {
     if (rigidBodyRef.current && groupRef.current) {
-      // NÃO precisa atualizar posição aqui, já está dentro do RigidBody
+      // n precisa atualizar posição aqui, já está dentro do RigidBody
       moveCharacter(rigidBodyRef.current);
     }
   });
