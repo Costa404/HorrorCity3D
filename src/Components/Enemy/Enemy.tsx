@@ -1,42 +1,46 @@
-import { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
-import { Box } from "@react-three/drei"; // Aqui mantemos o Box do Drei
+import { RigidBody, BallCollider } from "@react-three/rapier";
+import { useRef, useState } from "react";
+import { usePlayerStore } from "../Camera/FirstPersonCamera/Hooks/useCameraStore";
 
-import { Vector3 } from "three";
-import { useEnemyMovement } from "./useEnemyMovement";
-import { RapierRigidBody, RigidBody } from "@react-three/rapier";
+const Enemy = () => {
+  const enemyRef = useRef<ReturnType<typeof RigidBody> | null>(null);
+  // console.log("enemyRef", enemyRef);
 
-// Props: recebe a posição inicial e uma referência à posição do personagem
-const Enemy = ({
-  initialPosition,
-  getTargetPosition, // função que retorna Vector3 do personagem principal
-}: {
-  initialPosition: [number, number, number];
-  getTargetPosition: () => Vector3;
-}) => {
-  const rigidBodyRef = useRef<RapierRigidBody>(null);
-  const { moveEnemy } = useEnemyMovement();
+  const [gameOver, setGameOver] = useState(false);
 
-  useFrame(() => {
-    const body = rigidBodyRef.current;
-    if (body) {
-      const targetPos = getTargetPosition();
-      moveEnemy(body, targetPos);
+  const playerRef = usePlayerStore((state) => state.playerRef);
+  // console.log("player", playerRef);
+
+  const handleEnter = () => {
+    if (!enemyRef.current || !playerRef?.current) return;
+
+    const enemyPos = enemyRef.current.translation();
+    const playerPos = playerRef.current.translation();
+
+    if (!enemyPos || !playerPos) return;
+
+    const distance = Math.sqrt(
+      (enemyPos.x - playerPos.x) ** 2 +
+        (enemyPos.y - playerPos.y) ** 2 +
+        (enemyPos.z - playerPos.z) ** 2
+    );
+
+    console.log("Distância:", distance);
+
+    if (distance < 3) {
+      console.warn("GAME OVER 🔥");
+      setGameOver(true);
     }
-  });
+  };
 
   return (
-    <RigidBody
-      ref={rigidBodyRef}
-      type="dynamic"
-      colliders="cuboid"
-      position={initialPosition}
-      enabledRotations={[false, false, false]}
-    >
-      {/* Aqui estamos usando uma caixa simples */}
-      <Box>
-        <meshStandardMaterial color={"blue"} />
-      </Box>
+    <RigidBody ref={enemyRef} type="fixed" position={[0, 1.6, 0]}>
+      <mesh>
+        <sphereGeometry args={[1, 32, 32]} />
+        <meshStandardMaterial color={gameOver ? "red" : "purple"} />
+      </mesh>
+
+      <BallCollider args={[3]} sensor onIntersectionEnter={handleEnter} />
     </RigidBody>
   );
 };

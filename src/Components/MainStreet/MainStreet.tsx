@@ -14,12 +14,12 @@ const MainStreet = () => {
     <group ref={characterRef} position={new THREE.Vector3(0, 0, 0)}>
       {" "}
       {/* <Road road="src/assets/road.glb" /> */}
-      <Building position={[100, 0, 50]} />
-      <Building position={[0, 0, 0]} />
-      <Building position={[50, 0, -100]} />
-      <Building position={[-100, 0, 0]} />
-      <HouseWithGarden />
-      {/* <StreetLightGroup /> */}
+      <Building position={[0, 0, -20]} rotation={[0, Math.PI, 0]} />
+      <Building position={[80, 0, 50]} />
+      <Building position={[80, 0, -50]} />
+      <Building position={[0, 0, 80]} rotation={[0, Math.PI, 0]} />
+      {/* <HouseWithGarden /> */}
+      <StreetLightGroup />
       <TrashContainerGroup />
     </group>
   );

@@ -1,46 +1,53 @@
 import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 
-const StreetLight = ({ position = [0, 0, 0] }) => {
-  const { scene: originalScene } = useGLTF("src/assets/streetLight.glb");
-  const groupRef = useRef();
-  const sceneRef = useRef();
+interface StreetLightProps {
+  position?: [number, number, number];
+  rotation?: [number, number, number];
+}
 
-  //  Clona a cena uma vez quando o componente monta
+const StreetLight = ({
+  position = [0, 0, 0],
+  rotation = [0, 0, 0],
+}: StreetLightProps) => {
+  const { scene } = useGLTF("src/assets/streetLight.glb");
+  const groupRef = useRef<THREE.Group>(null);
+
+  // Clone the scene to avoid mutating the original
+  const clonedScene = useMemo(() => scene.clone(), [scene]);
+
   useEffect(() => {
-    sceneRef.current = originalScene.clone();
-  }, [originalScene]);
+    if (!groupRef.current) return;
 
-  useEffect(() => {
-    if (!groupRef.current || !sceneRef.current) return;
+    // Find the target object in the cloned scene
+    const lightTarget = clonedScene.getObjectByName("light_point");
+    if (!lightTarget) return;
 
-    const lightTarget = sceneRef.current.getObjectByName("light_point");
+    // Get the world position of the target
+    const worldPos = new THREE.Vector3();
+    lightTarget.getWorldPosition(worldPos);
 
-    if (lightTarget) {
-      const worldPos = new THREE.Vector3();
-      lightTarget.getWorldPosition(worldPos);
+    // Convert world position to the group's local space
+    const localPos = worldPos.clone();
+    groupRef.current.worldToLocal(localPos);
 
-      const light = groupRef.current.children.find(
-        (child) => child.type === "PointLight"
-      );
-      if (light) {
-        light.position.copy(worldPos);
-      }
+    // Find the point light in the group's children
+    const light = groupRef.current.children.find(
+      (child): child is THREE.PointLight => child.type === "PointLight"
+    );
+    if (light) {
+      // Update the light's position
+      light.position.copy(localPos);
     }
-  }, []);
+  }, [clonedScene]);
 
   return (
-    <RigidBody position={position} colliders="trimesh">
-      <group ref={groupRef}>
-        {sceneRef.current && <primitive object={sceneRef.current} />}
-        <pointLight
-          intensity={275}
-          distance={100}
-          decay={2.4}
-          color="#ffffff"
-        />
+    <RigidBody position={position} type="fixed" colliders="cuboid">
+      <group ref={groupRef} rotation={rotation}>
+        <primitive object={clonedScene} />
+        <pointLight intensity={75} distance={50} decay={2.5} color="#ffffff" />
       </group>
     </RigidBody>
   );

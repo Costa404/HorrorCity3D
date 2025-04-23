@@ -5,12 +5,13 @@ import { Physics, RigidBody } from "@react-three/rapier";
 import { Box, Environment, OrbitControls } from "@react-three/drei";
 
 import MainStreet from "./MainStreet/MainStreet";
-
+import * as THREE from "three";
 import MainCharacter from "./MainCharacter/MainCharacter";
-import FirstPersonCamera from "./Camera/FirstPersonCamera";
+
 import SkyWithSun from "./Utility/SkyWithSun";
 import CityFloorAndWalls from "./Utility/CityFloorAndWalls";
 import Enemy from "./Enemy/Enemy";
+import FirstPersonCamera from "./Camera/FirstPersonCamera/FirstPersonCamera";
 
 const MyCity = () => {
   const characterRef = useRef<Group | null>(null);
@@ -24,9 +25,10 @@ const MyCity = () => {
           {/* <ThirdPersonCamera target={characterRef} /> */}
           <FirstPersonCamera />
           {/* <OrbitControls /> */}
-          <MainCharacter ref={characterRef} position={[0, 50, 100]} />
+          {/* <MainCharacter ref={characterRef} position={[0, 50, 100]} /> */}
           <MainStreet />
           <CityFloorAndWalls />
+          <Enemy />
         </Physics>
       </Canvas>
     </div>
