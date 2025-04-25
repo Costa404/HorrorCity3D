@@ -1,48 +1,34 @@
-import { RigidBody, BallCollider } from "@react-three/rapier";
-import { useRef, useState } from "react";
-import { usePlayerStore } from "../Camera/FirstPersonCamera/Hooks/useCameraStore";
+import { useEffect, useState } from "react";
 
-const Enemy = () => {
-  const enemyRef = useRef<ReturnType<typeof RigidBody> | null>(null);
-  // console.log("enemyRef", enemyRef);
+type EnemyCubeProps = {
+  id: string;
+  position: [number, number, number];
+  onHit: (id: string) => void;
+};
 
-  const [gameOver, setGameOver] = useState(false);
+const EnemyCube = ({ position, id, onHit }: EnemyCubeProps) => {
+  const [life, setLife] = useState(100);
 
-  const playerRef = usePlayerStore((state) => state.playerRef);
-  // console.log("player", playerRef);
-
-  const handleEnter = () => {
-    if (!enemyRef.current || !playerRef?.current) return;
-
-    const enemyPos = enemyRef.current.translation();
-    const playerPos = playerRef.current.translation();
-
-    if (!enemyPos || !playerPos) return;
-
-    const distance = Math.sqrt(
-      (enemyPos.x - playerPos.x) ** 2 +
-        (enemyPos.y - playerPos.y) ** 2 +
-        (enemyPos.z - playerPos.z) ** 2
-    );
-
-    console.log("Distância:", distance);
-
-    if (distance < 3) {
-      console.warn("GAME OVER 🔥");
-      setGameOver(true);
-    }
+  const takeDamage = (amount: number) => {
+    setLife((prev) => prev - amount);
   };
 
-  return (
-    <RigidBody ref={enemyRef} type="fixed" position={[0, 1.6, 0]}>
-      <mesh>
-        <sphereGeometry args={[1, 32, 32]} />
-        <meshStandardMaterial color={gameOver ? "red" : "purple"} />
-      </mesh>
+  useEffect(() => {
+    if (life <= 0) {
+      onHit(id);
+    }
+  }, [life]);
 
-      <BallCollider args={[3]} sensor onIntersectionEnter={handleEnter} />
-    </RigidBody>
+  return (
+    <mesh
+      position={position}
+      userData={{ enemyId: id }}
+      onClick={() => takeDamage(30)}
+    >
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color={life > 0 ? "red" : "gray"} />
+    </mesh>
   );
 };
 
-export default Enemy;
+export default EnemyCube;

@@ -4,9 +4,10 @@ import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { RapierRigidBody } from "@react-three/rapier";
 import { useFootstepSound } from "./useFoostepSound";
-import { usePlayerStore } from "./useCameraStore";
+import { usePlayerStore } from "./usePlayerStore";
+import { useSwitchCameraStore } from "../../useSwitchCameraStore";
 
-const MOVEMENT_SPEED = 5;
+const MOVEMENT_SPEED = 15;
 const JUMP_FORCE = 5;
 const GROUND_THRESHOLD = 0.1;
 
@@ -26,12 +27,20 @@ export const useMovementPhysics = (
   const velocity = useRef(new THREE.Vector3());
   const isMoving = useRef(false);
   const isOnGround = useRef(false);
+  const { activeCamera } = useSwitchCameraStore();
 
-  const setPlayerPosition = usePlayerStore((state) => state.setPlayerRef);
+  const setPlayerPosition = usePlayerStore((state) => state.setPlayerRef); // Função para setar a posição no store
 
   useFootstepSound(isMoving.current);
 
   useFrame((_, delta) => {
+    // console.log("DEBUG - activeCamera:", activeCamera);
+
+    if (activeCamera !== "firstPerson") {
+      console.log("Saindo do useFrame - camera não é firstPerson");
+      return;
+    }
+
     if (!rigidBodyRef.current || !moveState.current) return;
 
     const rigidbody = rigidBodyRef.current;
@@ -73,6 +82,7 @@ export const useMovementPhysics = (
     // Atualize a posição no store
     setPlayerPosition(newPosition);
 
+    // Sync camera position
     camera.position.copy(newPosition);
 
     // Update movement state

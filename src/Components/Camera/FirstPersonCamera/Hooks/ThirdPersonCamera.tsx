@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { useCameraStore } from "./useCameraStore";
+import { useCameraStore } from "../../../MainCharacter/Hooks/useCameraStore";
 import * as THREE from "three";
 
 export const ThirdPersonCamera = () => {
   const { camera } = useThree();
   const { target } = useCameraStore();
-  const offset = new THREE.Vector3(0, 4, -10); 
+  const offset = new THREE.Vector3(0, 4, -10);
   const currentPosition = new THREE.Vector3();
 
   useFrame(() => {

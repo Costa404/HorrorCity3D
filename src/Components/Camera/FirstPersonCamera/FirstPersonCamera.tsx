@@ -3,7 +3,7 @@ import { useFirstPersonControls } from "./Hooks/useFirstPersonControls";
 
 import { useEffect, useRef } from "react";
 import { useSpotLightFollow } from "./Hooks/useSpotLightFollow";
-import { usePlayerStore } from "./Hooks/useCameraStore";
+import { usePlayerStore } from "./Hooks/usePlayerStore";
 
 const FirstPersonCamera = () => {
   const refPlayer = useRef<RapierRigidBody>();
@@ -38,6 +38,10 @@ const FirstPersonCamera = () => {
         color="white"
         castShadow
       /> */}
+      <mesh>
+        <boxGeometry args={[2, 2, 2]} />
+        <meshStandardMaterial color="green" />
+      </mesh>
     </RigidBody>
   );
 };

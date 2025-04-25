@@ -5,6 +5,7 @@ import { useKeyboardControls } from "./useKeyboardControls";
 
 import { useMovementPhysics } from "./useMovementPhysics";
 import { useMouseControls } from "./useMouseControls";
+import { useSwitchCameraStore } from "../../useSwitchCameraStore";
 
 export const useFirstPersonControls = (
   rigidBodyRef: React.RefObject<RapierRigidBody>
@@ -12,6 +13,7 @@ export const useFirstPersonControls = (
   const { camera } = useThree();
   const { moveState, setupKeyboardListeners } = useKeyboardControls();
   const { setupMouseListeners } = useMouseControls();
+  const { activeCamera } = useSwitchCameraStore();
 
   // Inicialização
   useEffect(() => {
@@ -28,6 +30,12 @@ export const useFirstPersonControls = (
     };
   }, [rigidBodyRef, camera]);
 
-  // Física e movimento
+  useEffect(() => {
+    if (activeCamera === "firstPerson") {
+      console.log("Ativar controle firstPerson");
+    } else {
+      console.log("desativar o controle firstPerson");
+    }
+  }, [activeCamera]);
   useMovementPhysics(rigidBodyRef, moveState, camera);
 };

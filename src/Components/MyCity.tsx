@@ -1,17 +1,18 @@
 import { useRef } from "react";
-import { Group, Vector3 } from "three";
+import { Group } from "three";
 import { Canvas } from "@react-three/fiber";
-import { Physics, RigidBody } from "@react-three/rapier";
-import { Box, Environment, OrbitControls } from "@react-three/drei";
+import { Physics } from "@react-three/rapier";
 
 import MainStreet from "./MainStreet/MainStreet";
 import * as THREE from "three";
-import MainCharacter from "./MainCharacter/MainCharacter";
 
 import SkyWithSun from "./Utility/SkyWithSun";
 import CityFloorAndWalls from "./Utility/CityFloorAndWalls";
-import Enemy from "./Enemy/Enemy";
-import FirstPersonCamera from "./Camera/FirstPersonCamera/FirstPersonCamera";
+
+import Cameras from "./Utility/Cameras";
+
+import { OxygenTank } from "./Utility/OxxygenTank";
+import Game from "./Enemy/test";
 
 const MyCity = () => {
   const characterRef = useRef<Group | null>(null);
@@ -23,12 +24,14 @@ const MyCity = () => {
           {/* <Environment files="src/assets/bgMilkyWay.jpg" background /> */}
           <SkyWithSun />
           {/* <ThirdPersonCamera target={characterRef} /> */}
-          <FirstPersonCamera />
+          {/* <FirstPersonCamera /> */}
           {/* <OrbitControls /> */}
+          <Cameras />
           {/* <MainCharacter ref={characterRef} position={[0, 50, 100]} /> */}
           <MainStreet />
           <CityFloorAndWalls />
-          <Enemy />
+          <Game />
+          <OxygenTank position={[20, 0.5, -3]} playerRef={characterRef} />
         </Physics>
       </Canvas>
     </div>

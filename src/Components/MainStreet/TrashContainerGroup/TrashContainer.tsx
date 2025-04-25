@@ -1,32 +1,67 @@
 import { useGLTF } from "@react-three/drei";
-import { RigidBody } from "@react-three/rapier";
-import { useMemo, useRef } from "react";
+import { RigidBody, CuboidCollider } from "@react-three/rapier";
+import { useMemo, useState, useRef, useEffect } from "react";
 import * as THREE from "three";
+import { useSwitchCameraStore } from "../../Camera/useSwitchCameraStore";
+import { useCameraForTrashContainer } from "./useCameraForTrashContainer ";
 
 interface TrashContainerProps {
+  id: string;
   position?: [number, number, number];
   rotation?: [number, number, number];
 }
 
-const TrashContainer = ({ position, rotation }: TrashContainerProps) => {
+const TrashContainer = ({ id, position, rotation }: TrashContainerProps) => {
   const { scene } = useGLTF("src/assets/trashContainer.glb");
+  const cloned = useMemo(() => scene.clone(), [scene]);
 
-  const groupRef = useRef<THREE.Group>(null);
+  const [isInTrashContainer, setIsInTrashContainer] = useState(false);
 
-  // Clona a cena antes do primeiro render
-  const clonedScene = useMemo(() => scene.clone(), [scene]);
+  const cameraRef = useRef<THREE.PerspectiveCamera>(null);
+
+  const trashPosition = useMemo(
+    () => new THREE.Vector3(...(position || [0, 0, 0])),
+    [position]
+  );
+
+  useCameraForTrashContainer({
+    cameraRef,
+    isInTrashContainer,
+    trashPosition,
+  });
+
+  const { setActiveCamera, setTrashPosition } = useSwitchCameraStore();
+
+  useEffect(() => {
+    setTrashPosition(id, trashPosition);
+  }, [id, trashPosition, setTrashPosition]);
+
+  const handleEnterZone = () => {
+    console.log(`ENTROU na zona do lixo (${id})`);
+    setActiveCamera("trashContainerView");
+    setIsInTrashContainer(true);
+  };
 
   return (
-    <RigidBody
-      position={position}
-      rotation={rotation}
-      type="dynamic"
-      colliders="cuboid"
-    >
-      <group ref={groupRef}>
-        <primitive object={clonedScene} />
-      </group>
-    </RigidBody>
+    <>
+      <RigidBody
+        position={position}
+        rotation={rotation}
+        type="fixed"
+        colliders="cuboid"
+      >
+        <primitive object={cloned} />
+
+        <CuboidCollider
+          args={[2.2, 2.0, 3.2]}
+          sensor
+          onIntersectionEnter={handleEnterZone}
+        />
+      </RigidBody>
+
+      {/* debug */}
+      <gridHelper args={[10, 10, 0x00ff00, 0x444444]} position={[0, 0, 0]} />
+    </>
   );
 };
 

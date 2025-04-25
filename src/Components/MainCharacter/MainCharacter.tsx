@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { RigidBody, RapierRigidBody } from "@react-three/rapier";
 import { useGLTF } from "@react-three/drei";
 
-import { useCameraStore } from "../Camera/useCameraStore";
+import { useCameraStore } from "./Hooks/useCameraStore";
 import { useMovement } from "./Hooks/useMovement";
 
 const MainCharacter = forwardRef<
