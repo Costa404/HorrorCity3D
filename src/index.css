@@ -3,3 +3,7 @@ body {
   padding: 0;
   overflow: hidden;
 }
+
+html {
+  font-size: 62.5%;
+}
