@@ -23,7 +23,7 @@ const FirstPersonCamera = () => {
       <SyncCameraWithPlayer target={playerRef} />
       <RigidBody
         ref={playerRef}
-        position={[50, 0.07, 0]}
+        position={[50, 1.4, 0]}
         colliders="cuboid"
         type="dynamic"
         lockRotations
@@ -31,7 +31,7 @@ const FirstPersonCamera = () => {
       >
         <GunAndHandsSwitcher />
         <mesh visible={false}>
-          <boxGeometry args={[1.5, 0.08, 0.5]} />{" "}
+          <boxGeometry args={[1.5, 2, 0.5]} />{" "}
           <meshStandardMaterial color="green" />
         </mesh>
       </RigidBody>

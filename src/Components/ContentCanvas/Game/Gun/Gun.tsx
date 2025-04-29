@@ -7,11 +7,16 @@ const Gun = () => {
   const { camera, scene } = useThree();
   const gunGroup = useRef<THREE.Group>(new THREE.Group());
 
-  const { scene: model } = useGLTF("src/assets/trashContainer.glb");
+  const { scene: model } = useGLTF("src/assets/deagle.glb");
 
   useEffect(() => {
-    scene.add(gunGroup.current);
-    return () => scene.remove(gunGroup.current);
+    const gun = gunGroup.current; // Copia o valor da ref
+
+    scene.add(gun); // Adiciona o modelo à cena
+
+    return () => {
+      scene.remove(gun); // Remove o mesmo modelo durante o cleanup
+    };
   }, [scene]);
 
   useFrame(() => {
@@ -21,14 +26,18 @@ const Gun = () => {
     group.position.copy(cam.position);
     group.quaternion.copy(cam.quaternion);
 
-    group.translateX(0);
-    group.translateY(-0.3);
-    group.translateZ(-1.1);
+    group.translateX(1);
+    group.translateY(-0.9);
+    group.translateZ(-2.1);
   });
 
   return (
     <primitive object={gunGroup.current}>
-      <primitive scale={[0.03, 0.3, 0.3]} object={model} />
+      <primitive
+        object={model}
+        scale={[0.5, 0.5, 0.5]}
+        rotation={[0, 0, Math.PI]}
+      />
     </primitive>
   );
 };
