@@ -12,9 +12,9 @@ const Cameras = () => {
     <group>
       <FirstPersonCamera />
 
-      {activeCamera === "trashContainerView" && activeTrashId && (
+      {/* {activeCamera === "trashContainerView" && activeTrashId && (
         <TrashContainerCamera targetPosition={trashPositions[activeTrashId]} />
-      )}
+      )} */}
     </group>
   );
 };

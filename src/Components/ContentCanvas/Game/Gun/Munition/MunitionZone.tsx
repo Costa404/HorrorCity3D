@@ -1,34 +1,39 @@
 import { CuboidCollider } from "@react-three/rapier";
-import { useRef } from "react";
-import * as THREE from "three";
 import { useGunStore } from "../useGunStore";
+import { useState, useMemo } from "react";
+import { useGLTF } from "@react-three/drei";
 
 const MunitionZone = () => {
-  const zoneRef = useRef();
-  const { addBullets } = useGunStore(); // Usando a função addBullets da store
+  const [getBullets, setGetBullets] = useState(true);
+  const { addBullets } = useGunStore();
 
-  // Função para adicionar loot quando o jogador entra na zona
+  const { scene } = useGLTF("src/assets/bullets.glb");
+
+  const cloned = useMemo(() => {
+    if (scene) {
+      return scene.clone();
+    }
+    return null;
+  }, [scene]);
+
   const handleEnterZone = () => {
-    // Atualiza as balas com a quantidade de munição pegada
-    addBullets(5); // Adiciona 5 balas quando pega a munição
-    console.log("Munição coletada!");
+    addBullets(5);
+    setGetBullets(false);
   };
 
+  if (!getBullets) {
+    return null; // Não renderiza nada se as balas ja tiverem sido coletadas
+  }
   return (
     <>
-      {/* Zona onde a colisão acontece */}
-      <CuboidCollider
-        ref={zoneRef}
-        args={[2.2, 2.0, 3.2]}
-        sensor
-        onIntersectionEnter={handleEnterZone} // Quando o jogador colide com a zona
-      />
-
-      {/* Renderizando a munição na posição (0, 0, 0) */}
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[20.2, 20.2, 20.2]} />
-        <meshStandardMaterial color="blue" />
-      </mesh>
+      <group position={[-100, 0, 0]}>
+        <CuboidCollider
+          args={[2.2, 2.0, 3.2]}
+          sensor
+          onIntersectionEnter={handleEnterZone}
+        />
+        {cloned && <primitive object={cloned} scale={[1, 1, 1]} />}
+      </group>
     </>
   );
 };

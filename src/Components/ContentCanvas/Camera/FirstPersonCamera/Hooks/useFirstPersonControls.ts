@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useThree } from "@react-three/fiber";
+
 import { RapierRigidBody } from "@react-three/rapier";
 import { useKeyboardControls } from "./useKeyboardControls";
 

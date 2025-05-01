@@ -1,12 +1,11 @@
 import * as THREE from "three";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { RapierRigidBody } from "@react-three/rapier";
 
 import { usePlayerStore } from "./usePlayerStore";
-import { useFootstepSound } from "./useFoostepSound";
 
-const MOVEMENT_SPEED = 55;
+const MOVEMENT_SPEED = 25;
 const JUMP_FORCE = 5;
 const GROUND_THRESHOLD = 0.1;
 
@@ -24,11 +23,11 @@ export const useMovement = (
   cameraDirection: THREE.Vector3
 ) => {
   const velocity = useRef(new THREE.Vector3());
-  const isMoving = useRef(false);
   const isOnGround = useRef(false);
   const setPlayerPosition = usePlayerStore((state) => state.setPlayerPosition);
 
-  useFootstepSound(isMoving.current);
+  const [isMoving, setIsMoving] = useState(false);
+  // useFootstepSound(isMoving);
 
   useFrame((_, delta) => {
     if (!rigidBodyRef.current || !moveState.current) return;
@@ -40,27 +39,43 @@ export const useMovement = (
     const forward = new THREE.Vector3();
     const right = new THREE.Vector3();
 
-    const currentPosition = rigidBody.translation();
-    isOnGround.current = currentPosition.y < GROUND_THRESHOLD;
+    // Verifica se está no chão
+    const position = rigidBody.translation();
+    isOnGround.current = position.y < GROUND_THRESHOLD;
 
-    // Usa a direção da câmera passada como parâmetro
+    // Direção da câmera
     forward.copy(cameraDirection).setY(0).normalize();
     right.crossVectors(new THREE.Vector3(0, 1, 0), forward);
 
+    // Calcula a direção com base nas teclas
     if (currentMoveState.forward) direction.add(forward);
     if (currentMoveState.backward) direction.sub(forward);
     if (currentMoveState.left) direction.sub(right);
     if (currentMoveState.right) direction.add(right);
 
+    // Normaliza e aplica velocidade
     if (direction.length() > 0) direction.normalize();
-    velocity.current = direction.multiplyScalar(MOVEMENT_SPEED);
+    velocity.current.copy(direction).multiplyScalar(MOVEMENT_SPEED);
 
-    const newPosition = rigidBody.translation();
-    newPosition.x += velocity.current.x * delta;
-    newPosition.z += velocity.current.z * delta;
-    rigidBody.setTranslation(newPosition, true);
+    // Aplica movimento com física (mantém gravidade)
+    rigidBody.setLinvel(
+      {
+        x: velocity.current.x,
+        y: rigidBody.linvel().y,
+        z: velocity.current.z,
+      },
+      true
+    );
 
-    setPlayerPosition(newPosition);
-    isMoving.current = direction.length() > 0 && isOnGround.current;
+    // Aplica pulo
+    if (currentMoveState.jump && isOnGround.current) {
+      rigidBody.applyImpulse({ x: 0, y: JUMP_FORCE, z: 0 }, true);
+    }
+
+    // Atualiza posição no store
+    setPlayerPosition(rigidBody.translation());
+
+    // Atualiza estado de "andando"
+    setIsMoving(direction.length() > 0 && isOnGround.current);
   });
 };

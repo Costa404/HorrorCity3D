@@ -1,18 +1,25 @@
 import { useRef } from "react";
 import * as THREE from "three";
 import useEnemies from "./useEnemies";
-import useGun from "../../Gun/useGun";
+
 import { useItemSwitchStore } from "./useItemSwitchStore";
+import useShoot from "../../Gun/useGun";
 
 const useGame = (camera: THREE.Camera, scene: THREE.Scene) => {
   const raycaster = useRef(new THREE.Raycaster());
   const { enemies, updateEnemyHealth } = useEnemies();
-  const { bullets, shoot } = useGun();
+  const { bullets, shoot } = useShoot();
   const { currentItem } = useItemSwitchStore();
 
   const handleShoot = () => {
     if (currentItem === "hands") return;
-    if (bullets <= 0) return;
+    if (bullets <= 0) {
+      const noBullets = new Audio("src/assets/Sounds/noBullets.mp3");
+      noBullets
+        .play()
+        .catch((err) => console.error("Erro ao tocar o som:", err));
+      return;
+    }
 
     shoot();
 

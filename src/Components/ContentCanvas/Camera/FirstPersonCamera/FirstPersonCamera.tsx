@@ -1,4 +1,8 @@
-import { RapierRigidBody, RigidBody } from "@react-three/rapier";
+import {
+  CuboidCollider,
+  RapierRigidBody,
+  RigidBody,
+} from "@react-three/rapier";
 import { useFirstPersonControls } from "./Hooks/useFirstPersonControls";
 import { useEffect, useRef } from "react";
 import { usePlayerStore } from "./Hooks/usePlayerStore";
@@ -23,16 +27,16 @@ const FirstPersonCamera = () => {
       <SyncCameraWithPlayer target={playerRef} />
       <RigidBody
         ref={playerRef}
-        position={[50, 1.4, 0]}
-        colliders="cuboid"
+        position={[2, 1.4, 2]}
         type="dynamic"
         lockRotations
         mass={1}
       >
         <GunAndHandsSwitcher />
-        <mesh visible={false}>
-          <boxGeometry args={[1.5, 2, 0.5]} />{" "}
-          <meshStandardMaterial color="green" />
+        <CuboidCollider args={[1.75, 1, 1.75]} />{" "}
+        <mesh>
+          <boxGeometry args={[1, 1, 1.75]} /> {/* collider args * 2 */}
+          <meshBasicMaterial color="red" wireframe />
         </mesh>
       </RigidBody>
     </>

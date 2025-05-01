@@ -1,13 +1,9 @@
 import { useGunStore } from "./useGunStore";
 
-const useGun = () => {
+const useShoot = () => {
   const bullets = useGunStore((state) => state.bullets);
 
   const shoot = () => {
-    if (bullets <= 0) {
-      return;
-    }
-
     useGunStore.getState().shoot();
 
     const shotSound = new Audio("src/assets/Sounds/gunShot.ogg");
@@ -18,4 +14,4 @@ const useGun = () => {
   return { bullets, shoot };
 };
 
-export default useGun;
+export default useShoot;

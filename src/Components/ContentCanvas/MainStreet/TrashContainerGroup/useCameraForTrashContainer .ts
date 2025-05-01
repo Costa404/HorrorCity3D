@@ -12,12 +12,11 @@ export const useCameraForTrashContainer = ({
   isInTrashContainer: boolean;
   trashPosition: THREE.Vector3;
 }) => {
-  const { setActiveCamera, activeCamera } = useSwitchCameraStore(); // Add activeCamera to check current state
+  const { setActiveCamera, activeCamera } = useSwitchCameraStore();
   const { camera } = useThree();
 
   useEffect(() => {
     if (isInTrashContainer && activeCamera !== "trashContainerView") {
-      // Only set if we're not already in the correct camera mode
       setActiveCamera("trashContainerView");
 
       if (cameraRef.current) {
@@ -33,5 +32,5 @@ export const useCameraForTrashContainer = ({
     trashPosition,
     cameraRef,
     activeCamera,
-  ]); // Add activeCamera to dependencies
+  ]);
 };

@@ -10,12 +10,12 @@ const Gun = () => {
   const { scene: model } = useGLTF("src/assets/deagle.glb");
 
   useEffect(() => {
-    const gun = gunGroup.current; // Copia o valor da ref
+    const gun = gunGroup.current;
 
-    scene.add(gun); // Adiciona o modelo à cena
+    scene.add(gun);
 
     return () => {
-      scene.remove(gun); // Remove o mesmo modelo durante o cleanup
+      scene.remove(gun);
     };
   }, [scene]);
 

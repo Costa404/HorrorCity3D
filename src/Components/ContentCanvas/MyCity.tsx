@@ -4,20 +4,20 @@ import { Canvas } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
 
 import MainStreet from "./MainStreet/MainStreet";
-import * as THREE from "three";
 
 import SkyWithSun from "./Utility/SkyWithSun";
 import CityFloorAndWalls from "./Utility/CityFloorAndWalls";
 
-import Cameras from "./Utility/Cameras";
-
-import { OxygenTank } from "./Utility/OxxygenTank";
 import Game from "./Game/Game";
-import { OrbitControls } from "three-stdlib";
+
 import MunitionZone from "./Game/Gun/Munition/MunitionZone";
+import EnemyCharacter from "./Game/EnemyCharacter/EnemyCharacter";
+
+import Cameras from "./Utility/Cameras";
+import { OrbitControls } from "@react-three/drei";
 
 const MyCity = () => {
-  const characterRef = useRef<Group | null>(null);
+  // const characterRef = useRef<Group | null>(null);
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
@@ -29,12 +29,12 @@ const MyCity = () => {
           {/* <FirstPersonCamera /> */}
           {/* <OrbitControls /> */}
           <Cameras />
-          {/* <MainCharacter ref={characterRef} position={[0, 50, 100]} /> */}
+
           <MainStreet />
           <CityFloorAndWalls />
           <Game />
+          <EnemyCharacter position={[0, 1, 0]} />
           <MunitionZone />
-          {/* <OxygenTank position={[20, 0.5, -3]} playerRef={characterRef} /> */}
         </Physics>
       </Canvas>
     </div>

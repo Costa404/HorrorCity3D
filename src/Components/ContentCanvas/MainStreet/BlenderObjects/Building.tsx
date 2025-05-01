@@ -22,21 +22,19 @@ const Building: React.FC<BuildingProps> = ({
   const meshRef = useRef<THREE.Mesh>(null);
 
   const trashPositions: [number, number, number][] = [
-    [-18, 1, 27],
-    [-18, 0, 4.5],
+    [-25, 0.3, 42],
+    [-25, 0.3, 6],
   ];
 
   return (
     <group position={position} rotation={rotation}>
       <RigidBody colliders="trimesh">
-        <primitive object={clonedScene} scale={[2, 2, 2]} ref={meshRef} />
+        <primitive object={clonedScene} scale={[3, 3, 3]} ref={meshRef} />
       </RigidBody>
-
-      <StreetLight position={[14, 0, 30]} rotation={[0, Math.PI * 1.5, 0]} />
-      <StreetLight position={[14, 0, 1]} rotation={[0, Math.PI * 1.5, 0]} />
-      <StreetLight position={[-18, 0, 31]} rotation={[0, Math.PI / 2, 0]} />
-      <StreetLight position={[-18, 0, 2.5]} rotation={[0, Math.PI / 2, 0]} />
-
+      <StreetLight position={[20, 0, 45.5]} rotation={[0, Math.PI * 1.5, 0]} />
+      <StreetLight position={[20, 0, 1.5]} rotation={[0, Math.PI * 1.5, 0]} />
+      <StreetLight position={[-26, 0, 46.5]} rotation={[0, Math.PI / 2, 0]} />
+      <StreetLight position={[-26, 0, 2.5]} rotation={[0, Math.PI / 2, 0]} />
       {trashPositions.map((pos, index) => {
         const trashId = `building${buildingIndex}_trash${index}`;
         return (

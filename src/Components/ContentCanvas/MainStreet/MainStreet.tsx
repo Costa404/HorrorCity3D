@@ -1,13 +1,11 @@
 import Building from "./BlenderObjects/Building";
-import HouseWithGarden from "./BlenderObjects/HouseWithGarden";
 
 import { useRef } from "react";
 import * as THREE from "three";
 
-import StreetLightGroup from "./StreetLightGroup/StreetLightGroup";
-import TrashContainerGroup from "./TrashContainerGroup/TrashContainerGroup";
 import DemageBuilding from "./BlenderObjects/DemageBuilding";
-import MunitionZone from "../Game/Gun/Munition/MunitionZone";
+
+import AbandonedStand from "./BlenderObjects/AbandonedStand";
 
 const MainStreet = () => {
   const characterRef = useRef<THREE.Group>(null);
@@ -28,9 +26,8 @@ const MainStreet = () => {
         position={[0, 0, 80]}
         rotation={[0, Math.PI, 0]}
       />
-      <HouseWithGarden />
+      <AbandonedStand />
       <DemageBuilding />
-      <StreetLightGroup />
     </group>
   );
 };
