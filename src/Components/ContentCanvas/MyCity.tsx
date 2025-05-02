@@ -15,6 +15,7 @@ import EnemyCharacter from "./Game/EnemyCharacter/EnemyCharacter";
 
 import Cameras from "./Utility/Cameras";
 import { OrbitControls } from "@react-three/drei";
+import EnemyCube from "./Game/UtilityGame/Enemy";
 
 const MyCity = () => {
   // const characterRef = useRef<Group | null>(null);
@@ -22,18 +23,19 @@ const MyCity = () => {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <Canvas camera={{ position: [0, 100, 300], fov: 60 }} shadows>
-        <Physics gravity={[0, -9.81, 0]}>
+        <Physics debug gravity={[0, -9.81, 0]}>
           {/* <Environment files="src/assets/bgMilkyWay.jpg" background /> */}
           <SkyWithSun />
           {/* <ThirdPersonCamera target={characterRef} /> */}
           {/* <FirstPersonCamera /> */}
           {/* <OrbitControls /> */}
           <Cameras />
-
-          <MainStreet />
+          {/* 
+          <MainStreet /> */}
           <CityFloorAndWalls />
           <Game />
-          <EnemyCharacter position={[0, 1, 0]} />
+          {/* <EnemyCharacter position={[0, 1, 0]} /> */}
+
           <MunitionZone />
         </Physics>
       </Canvas>

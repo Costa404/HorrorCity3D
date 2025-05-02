@@ -1,11 +1,14 @@
 import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
-import EnemyCube from "./UtilityGame/Enemy";
-import useGame from "./UtilityGame/HooksGame/useGame";
+import EnemyCube from "./Enemies/Enemy";
+import useGame from "./UtilityGame/useGame";
+import useEnemies from "./Enemies/EnemyCharacter/Hooks/useEnemies";
 
 const Game = () => {
   const { camera, scene } = useThree();
-  const { enemies, handleShoot } = useGame(camera, scene);
+  const { handleShoot, enemies } = useGame(camera, scene);
+
+  // console.log("Inimigos vivos:", enemies);
 
   useEffect(() => {
     const handleMouseDown = (e: MouseEvent) => {
@@ -17,16 +20,18 @@ const Game = () => {
 
   return (
     <>
-      {enemies.map((enemy) => (
-        <EnemyCube
-          key={enemy.id}
-          id={enemy.id}
-          position={enemy.position}
-          onHit={(id: string) => {
-            console.log(`${id} morreu (via onHit)`);
-          }}
-        />
-      ))}
+      {enemies.map((enemy) => {
+        return (
+          <EnemyCube
+            key={enemy.id}
+            id={enemy.id}
+            position={enemy.position}
+            onHit={(id: string) => {
+              console.log(`${id} morreu (via onHit)`);
+            }}
+          />
+        );
+      })}
     </>
   );
 };

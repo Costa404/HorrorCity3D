@@ -10,7 +10,7 @@ type GunStoreState = {
 };
 
 export const useGunStore = create<GunStoreState>((set) => ({
-  bullets: 20,
+  bullets: 220,
   isShooting: false,
 
   shoot: () =>

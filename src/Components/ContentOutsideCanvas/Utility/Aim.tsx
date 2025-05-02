@@ -1,4 +1,4 @@
-import { useItemSwitchStore } from "../../ContentCanvas/Game/UtilityGame/HooksGame/useItemSwitchStore";
+import { useItemSwitchStore } from "../../ContentCanvas/Game/UtilityGame/useItemSwitchStore";
 
 const Aim = () => {
   const { currentItem } = useItemSwitchStore();

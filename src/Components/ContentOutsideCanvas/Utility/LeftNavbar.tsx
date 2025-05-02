@@ -1,8 +1,9 @@
 import { FaRegHand } from "react-icons/fa6";
 import { GiPistolGun } from "react-icons/gi";
-import { useItemSwitchStore } from "../../ContentCanvas/Game/UtilityGame/HooksGame/useItemSwitchStore";
+
 import LifeBar from "../LifeBar";
 import DisplayBullets from "./DisplayBullets";
+import { useItemSwitchStore } from "../../ContentCanvas/Game/UtilityGame/useItemSwitchStore";
 
 const LeftNavbar = () => {
   const { currentItem, setItem } = useItemSwitchStore();

@@ -8,7 +8,7 @@ type Enemy = {
 
 const useEnemies = () => {
   const [enemies, setEnemies] = useState<Enemy[]>([
-    { id: "enemy1", position: [5, 1, -10], health: 100 },
+    { id: "enemy1", position: [5, 2, -10], health: 100 },
     { id: "enemy2", position: [3, 1, -8], health: 100 },
   ]);
 
@@ -20,7 +20,7 @@ const useEnemies = () => {
           : enemy
       );
 
-      // Remove inimigos com saúde 0
+      // Remove enemies com life 0
       return updated.filter((enemy) => enemy.health > 0);
     });
   };

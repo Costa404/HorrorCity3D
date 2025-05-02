@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import Hands from "./Hands";
 import Gun from "../Gun/Gun";
-import { useItemSwitchStore } from "./HooksGame/useItemSwitchStore";
+import { useItemSwitchStore } from "./useItemSwitchStore";
 
 const GunAndHandsSwitcher = () => {
   const { currentItem, setItem } = useItemSwitchStore();
