@@ -11,7 +11,8 @@ import { SyncCameraWithPlayer } from "./Hooks/SyncCameraWithPlayer";
 import GunAndHandsSwitcher from "../../Game/UtilityGame/GunAndHandsSwitcher";
 
 const FirstPersonCamera = () => {
-  const playerRef = useRef<RapierRigidBody>(null);
+  const playerRef = useRef<RapierRigidBody | null>(null);
+
   const setPlayerRef = usePlayerStore((state) => state.setPlayerRef);
 
   useFirstPersonControls(playerRef);
@@ -27,7 +28,7 @@ const FirstPersonCamera = () => {
       <SyncCameraWithPlayer target={playerRef} />
       <RigidBody
         ref={playerRef}
-        position={[2, 1.4, 2]}
+        position={[20, 1.4, 20]}
         type="dynamic"
         lockRotations
         mass={1}
@@ -35,7 +36,7 @@ const FirstPersonCamera = () => {
         <GunAndHandsSwitcher />
         <CuboidCollider args={[1.75, 1, 1.75]} />{" "}
         <mesh>
-          <boxGeometry args={[1, 1, 1.75]} /> {/* collider args * 2 */}
+          <boxGeometry args={[1, 1, 1.75]} />
           <meshBasicMaterial color="red" wireframe />
         </mesh>
       </RigidBody>

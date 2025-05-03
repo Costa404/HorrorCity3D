@@ -22,7 +22,7 @@ const MunitionZone = () => {
   };
 
   if (!getBullets) {
-    return null; // Não renderiza nada se as balas ja tiverem sido coletadas
+    return null; // Não renderiza nada se as balas ja tiverem sido apanhadas
   }
   return (
     <>

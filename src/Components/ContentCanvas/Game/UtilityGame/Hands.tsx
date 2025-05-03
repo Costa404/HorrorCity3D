@@ -25,13 +25,13 @@ const Hands = () => {
 
     // camera positon
     group.translateX(0);
-    group.translateY(-0.6);
-    group.translateZ(-1.1);
+    group.translateY(-0.5);
+    group.translateZ(-2);
   });
 
   return (
     <primitive object={handsGroup.current}>
-      <primitive object={handsModel} scale={[0.3, 0.3, 0.3]} />
+      <primitive object={handsModel} scale={[0.045, 0.045, 0.045]} />
     </primitive>
   );
 };

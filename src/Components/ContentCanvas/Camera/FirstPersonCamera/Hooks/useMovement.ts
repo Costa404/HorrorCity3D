@@ -57,7 +57,7 @@ export const useMovement = (
     if (direction.length() > 0) direction.normalize();
     velocity.current.copy(direction).multiplyScalar(MOVEMENT_SPEED);
 
-    // Aplica movimento com física (mantém gravidade)
+    // Aplica movimento com física
     rigidBody.setLinvel(
       {
         x: velocity.current.x,
@@ -67,7 +67,7 @@ export const useMovement = (
       true
     );
 
-    // Aplica pulo
+    // Aplica salto
     if (currentMoveState.jump && isOnGround.current) {
       rigidBody.applyImpulse({ x: 0, y: JUMP_FORCE, z: 0 }, true);
     }
@@ -75,7 +75,7 @@ export const useMovement = (
     // Atualiza posição no store
     setPlayerPosition(rigidBody.translation());
 
-    // Atualiza estado de "andando"
+    // Atualiza estado de andar
     setIsMoving(direction.length() > 0 && isOnGround.current);
   });
 };

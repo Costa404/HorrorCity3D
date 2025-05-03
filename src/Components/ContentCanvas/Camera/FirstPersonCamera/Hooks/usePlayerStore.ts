@@ -7,8 +7,8 @@ interface PlayerState {
   playerRef: React.RefObject<RapierRigidBody> | null;
   playerPosition: THREE.Vector3 | null;
   cameraDirection: THREE.Vector3;
-  setPlayerRef: (ref: React.RefObject<RapierRigidBody>) => void;
-  setPlayerPosition: (position: THREE.Vector3) => void;
+  setPlayerRef: (ref: React.RefObject<RapierRigidBody> | null) => void;
+  setPlayerPosition: (position: THREE.Vector3 | null) => void;
   setCameraDirection: (direction: THREE.Vector3) => void;
 }
 

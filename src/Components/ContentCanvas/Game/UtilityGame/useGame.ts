@@ -8,7 +8,7 @@ import useShoot from "../Gun/useGun";
 
 const useGame = (camera: THREE.Camera, scene: THREE.Scene) => {
   const raycaster = useRef(new THREE.Raycaster());
-  const { enemies, updateEnemyHealth } = useEnemies();
+  const { enemies, updateEnemyLife } = useEnemies();
   const { bullets, shoot } = useShoot();
   const { currentItem } = useItemSwitchStore();
 
@@ -38,7 +38,7 @@ const useGame = (camera: THREE.Camera, scene: THREE.Scene) => {
         const enemyId = obj.userData.enemyId;
 
         // console.log("Inimigo atingido com ID:", enemyId);
-        updateEnemyHealth(enemyId, 30);
+        updateEnemyLife(enemyId, 30);
         break;
       }
     }

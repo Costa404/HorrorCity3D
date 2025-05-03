@@ -8,7 +8,7 @@ import { usePlayerStore } from "./usePlayerStore";
 import { useMovement } from "./useMovement";
 
 export const useFirstPersonControls = (
-  rigidBodyRef: React.RefObject<RapierRigidBody>
+  rigidBodyRef: React.RefObject<RapierRigidBody | null>
 ) => {
   const { moveState, setupKeyboardListeners } = useKeyboardControls();
   const { setupMouseListeners } = useMouseControls();

@@ -36,11 +36,11 @@ const TrashContainer = ({ id, position, rotation }: TrashContainerProps) => {
     setTrashPosition(id, trashPosition);
   }, [id, trashPosition, setTrashPosition]);
 
-  const handleEnterZone = () => {
-    console.log(`ENTROU na zona do lixo (${id})`);
-    setActiveCamera("trashContainerView");
-    setIsInTrashContainer(true);
-  };
+  // const handleEnterZone = () => {
+  //   console.log(`ENTROU na zona do lixo (${id})`);
+  //   setActiveCamera("trashContainerView");
+  //   setIsInTrashContainer(true);
+  // };
 
   return (
     <>
@@ -55,7 +55,7 @@ const TrashContainer = ({ id, position, rotation }: TrashContainerProps) => {
         <CuboidCollider
           args={[2.2, 2.0, 3.2]}
           sensor
-          onIntersectionEnter={handleEnterZone}
+          // onIntersectionEnter={handleEnterZone}
         />
       </RigidBody>
     </>
