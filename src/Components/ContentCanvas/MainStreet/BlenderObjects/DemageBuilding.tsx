@@ -1,6 +1,6 @@
 import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
-import StreetLight from "../StreetLightGroup/StreetLight";
+import StreetLight from "./StreetLightGroup/StreetLight";
 
 const DemageBuilding = () => {
   const { scene } = useGLTF("src/assets/demageBuilding.glb");

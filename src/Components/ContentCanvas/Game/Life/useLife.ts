@@ -18,7 +18,7 @@ export const useLife = () => {
     updateBar();
 
     if (useLife.current <= 0) {
-      console.log("Game Over - sem oxigênio!");
+      console.log("Game Over - no life!");
     }
   };
 

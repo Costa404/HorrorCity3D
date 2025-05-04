@@ -10,6 +10,8 @@ interface PlayerState {
   setPlayerRef: (ref: React.RefObject<RapierRigidBody> | null) => void;
   setPlayerPosition: (position: THREE.Vector3 | null) => void;
   setCameraDirection: (direction: THREE.Vector3) => void;
+  isAwpZooming: boolean;
+  setisAwpZooming: (isAwpZooming: boolean) => void;
 }
 
 export const usePlayerStore = create<PlayerState>((set) => ({
@@ -19,4 +21,6 @@ export const usePlayerStore = create<PlayerState>((set) => ({
   setPlayerRef: (ref) => set({ playerRef: ref }),
   setPlayerPosition: (position) => set({ playerPosition: position }),
   setCameraDirection: (direction) => set({ cameraDirection: direction }),
+  isAwpZooming: false,
+  setisAwpZooming: (isAwpZooming) => set({ isAwpZooming }),
 }));

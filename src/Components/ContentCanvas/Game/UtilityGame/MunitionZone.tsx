@@ -1,7 +1,8 @@
 import { CuboidCollider } from "@react-three/rapier";
-import { useGunStore } from "../useGunStore";
+
 import { useState, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
+import { useGunStore } from "../Gun/GunHooks/useGunStore";
 
 const MunitionZone = () => {
   const [getBullets, setGetBullets] = useState(true);

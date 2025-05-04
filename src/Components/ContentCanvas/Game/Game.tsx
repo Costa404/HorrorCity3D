@@ -1,12 +1,11 @@
 import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
 import EnemyCube from "./Enemies/Enemy";
-import useGame from "./UtilityGame/useGame";
-import useEnemies from "./Enemies/EnemyCharacter/Hooks/useEnemies";
+import useHandleShot from "./Gun/GunHooks/useShotCollision";
 
 const Game = () => {
   const { camera, scene } = useThree();
-  const { handleShoot, enemies } = useGame(camera, scene);
+  const { handleShoot, enemies } = useHandleShot(camera, scene);
 
   // console.log("Inimigos vivos:", enemies);
 

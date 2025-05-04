@@ -15,25 +15,21 @@ const StreetLight = ({
   const { scene } = useGLTF("src/assets/streetLight.glb");
   const groupRef = useRef<THREE.Group>(null);
 
-  // Clone the scene to avoid mutating the original
+  // Clonar o objeto para não modificar a instancia orignal
   const clonedScene = useMemo(() => scene.clone(), [scene]);
 
   useEffect(() => {
     if (!groupRef.current) return;
 
-    // Find the target object in the cloned scene
     const lightTarget = clonedScene.getObjectByName("light_point");
     if (!lightTarget) return;
 
-    // Get the world position of the target
     const worldPos = new THREE.Vector3();
     lightTarget.getWorldPosition(worldPos);
 
-    // Convert world position to the group's local space
     const localPos = worldPos.clone();
     groupRef.current.worldToLocal(localPos);
 
-    // Find the point light in the group's children
     const light = groupRef.current.children.find(
       (child): child is THREE.PointLight => child.type === "PointLight"
     );

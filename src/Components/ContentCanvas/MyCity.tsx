@@ -1,21 +1,11 @@
-import { useRef } from "react";
-import { Group } from "three";
 import { Canvas } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
-
 import MainStreet from "./MainStreet/MainStreet";
-
 import SkyWithSun from "./Utility/SkyWithSun";
 import CityFloorAndWalls from "./Utility/CityFloorAndWalls";
-
 import Game from "./Game/Game";
-
-import MunitionZone from "./Game/Gun/Munition/MunitionZone";
-import EnemyCharacter from "./Game/EnemyCharacter/EnemyCharacter";
-
 import Cameras from "./Utility/Cameras";
-import { OrbitControls } from "@react-three/drei";
-import EnemyCube from "./Game/UtilityGame/Enemy";
+import MunitionZone from "./Game/UtilityGame/MunitionZone";
 
 const MyCity = () => {
   // const characterRef = useRef<Group | null>(null);

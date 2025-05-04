@@ -1,26 +1,41 @@
 import { useEffect } from "react";
-
 import Hands from "./Hands";
-import Gun from "../Gun/Gun";
+
 import { useItemSwitchStore } from "./useItemSwitchStore";
+import Awp from "../Gun/Awp";
+import Deagle from "../Gun/Deagle";
+import { usePlayerStore } from "../../Camera/FirstPersonCamera/Hooks/usePlayerStore";
 
 const GunAndHandsSwitcher = () => {
   const { currentItem, setItem } = useItemSwitchStore();
+  const { isAwpZooming } = usePlayerStore();
 
   useEffect(() => {
+    // Early return caso não seja AWP, pois o zoom só é com a AWP
+
+    if (isAwpZooming) return;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Tab") {
         event.preventDefault();
-
-        setItem(currentItem === "gun" ? "hands" : "gun");
+        setItem((prevItem) => {
+          if (prevItem === "hands") return "deagle";
+          if (prevItem === "deagle") return "awp";
+          return "hands";
+        });
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentItem, setItem]);
+  }, [setItem, isAwpZooming]);
 
-  return currentItem === "gun" ? <Gun /> : <Hands />;
+  return (
+    <>
+      {currentItem === "hands" && <Hands />}
+      {currentItem === "deagle" && <Deagle />}
+      {currentItem === "awp" && <Awp />}
+    </>
+  );
 };
 
 export default GunAndHandsSwitcher;

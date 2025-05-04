@@ -1,5 +1,5 @@
 import { GiGunshot } from "react-icons/gi";
-import { useGunStore } from "../../ContentCanvas/Game/Gun/useGunStore";
+import { useGunStore } from "../../ContentCanvas/Game/Gun/GunHooks/useGunStore";
 
 const DisplayBullets = () => {
   const bullets = useGunStore((state) => state.bullets);

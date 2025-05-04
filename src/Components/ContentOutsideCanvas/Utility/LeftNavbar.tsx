@@ -1,9 +1,10 @@
 import { FaRegHand } from "react-icons/fa6";
-import { GiPistolGun } from "react-icons/gi";
+import { GiPistolGun, GiSawedOffShotgun } from "react-icons/gi";
 
 import LifeBar from "../LifeBar";
 import DisplayBullets from "./DisplayBullets";
 import { useItemSwitchStore } from "../../ContentCanvas/Game/UtilityGame/useItemSwitchStore";
+import awp from "../../../assets/awpIcon.png";
 
 const LeftNavbar = () => {
   const { currentItem, setItem } = useItemSwitchStore();
@@ -17,18 +18,24 @@ const LeftNavbar = () => {
         zIndex: 1000,
       }}
     >
+      <GiSawedOffShotgun
+        onClick={() => setItem("awp")}
+        color={currentItem === "awp" ? "white" : "gray"}
+        size={30}
+      />
       <GiPistolGun
-        onClick={() => setItem("gun")}
-        color={currentItem === "gun" ? "white" : "gray"}
+        onClick={() => setItem("deagle")}
+        color={currentItem === "deagle" ? "white" : "gray"}
         size={30}
         style={{ cursor: "pointer" }}
       />
       <FaRegHand
         onClick={() => setItem("hands")}
-        color={currentItem === "hands" ? "white" : "gray"}
         size={30}
+        color={currentItem === "hands" ? "white" : "gray"}
         style={{ cursor: "pointer" }}
       />
+
       <DisplayBullets />
       <LifeBar />
     </div>

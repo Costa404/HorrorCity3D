@@ -7,7 +7,6 @@ import { useFirstPersonControls } from "./Hooks/useFirstPersonControls";
 import { useEffect, useRef } from "react";
 import { usePlayerStore } from "./Hooks/usePlayerStore";
 import { SyncCameraWithPlayer } from "./Hooks/SyncCameraWithPlayer";
-
 import GunAndHandsSwitcher from "../../Game/UtilityGame/GunAndHandsSwitcher";
 
 const FirstPersonCamera = () => {
@@ -28,7 +27,7 @@ const FirstPersonCamera = () => {
       <SyncCameraWithPlayer target={playerRef} />
       <RigidBody
         ref={playerRef}
-        position={[20, 1.4, 20]}
+        position={[110, 1.4, 110]}
         type="dynamic"
         lockRotations
         mass={1}

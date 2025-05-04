@@ -3,25 +3,25 @@ import { useThree, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-const Gun = () => {
+const Deagle = () => {
   const { camera, scene } = useThree();
-  const gunGroup = useRef<THREE.Group>(new THREE.Group());
+  const deagleGroup = useRef<THREE.Group>(new THREE.Group());
 
   const { scene: model } = useGLTF("src/assets/deagle.glb");
 
   useEffect(() => {
-    const gun = gunGroup.current;
+    const deagle = deagleGroup.current;
 
-    scene.add(gun);
+    scene.add(deagle);
 
     return () => {
-      scene.remove(gun);
+      scene.remove(deagle);
     };
   }, [scene]);
 
   useFrame(() => {
     const cam = camera;
-    const group = gunGroup.current;
+    const group = deagleGroup.current;
 
     group.position.copy(cam.position);
     group.quaternion.copy(cam.quaternion);
@@ -32,7 +32,7 @@ const Gun = () => {
   });
 
   return (
-    <primitive object={gunGroup.current}>
+    <primitive object={deagleGroup.current}>
       <primitive
         object={model}
         scale={[0.5, 0.5, 0.5]}
@@ -42,4 +42,4 @@ const Gun = () => {
   );
 };
 
-export default Gun;
+export default Deagle;

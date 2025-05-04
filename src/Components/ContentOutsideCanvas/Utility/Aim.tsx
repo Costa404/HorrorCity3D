@@ -4,7 +4,7 @@ const Aim = () => {
   const { currentItem } = useItemSwitchStore();
   return (
     <>
-      {currentItem === "gun" ? (
+      {currentItem === "deagle" ? (
         <div
           style={{
             position: "absolute",

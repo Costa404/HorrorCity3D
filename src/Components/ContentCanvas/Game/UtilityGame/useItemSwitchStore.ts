@@ -1,13 +1,19 @@
 import { create } from "zustand";
 
-export type ItemType = "hands" | "gun";
+type Item = "hands" | "deagle" | "awp";
 
-type Store = {
-  currentItem: ItemType;
-  setItem: (item: ItemType) => void;
-};
+interface ItemSwitchState {
+  currentItem: Item;
+  setItem: (item: Item | ((prev: Item) => Item)) => void;
+}
 
-export const useItemSwitchStore = create<Store>((set) => ({
+export const useItemSwitchStore = create<ItemSwitchState>((set) => ({
   currentItem: "hands",
-  setItem: (item) => set({ currentItem: item }),
+  setItem: (item) => {
+    if (typeof item === "function") {
+      set((state) => ({ currentItem: item(state.currentItem) }));
+    } else {
+      set({ currentItem: item });
+    }
+  },
 }));

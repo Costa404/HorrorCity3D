@@ -7,3 +7,57 @@ body {
 html {
   font-size: 62.5%;
 }
+
+.zoom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    transparent 42%,
+    black 30%,
+    black 100%
+  );
+}
+
+.zoom-overlay::before,
+.zoom-overlay::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Linha horizontal */
+.zoom-overlay::before {
+  width: 100%;
+  height: 2px;
+  background-color: black;
+}
+
+/* Linha vertical */
+.zoom-overlay::after {
+  width: 2px;
+  height: 100%;
+  background-color: black;
+}
+/* dot central */
+.crosshair-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: red;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}

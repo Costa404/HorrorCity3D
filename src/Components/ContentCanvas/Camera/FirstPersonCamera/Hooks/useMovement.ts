@@ -25,6 +25,7 @@ export const useMovement = (
   const velocity = useRef(new THREE.Vector3());
   const isOnGround = useRef(false);
   const setPlayerPosition = usePlayerStore((state) => state.setPlayerPosition);
+  const isAwpZooming = usePlayerStore((state) => state.isAwpZooming);
 
   const [isMoving, setIsMoving] = useState(false);
   // useFootstepSound(isMoving);
