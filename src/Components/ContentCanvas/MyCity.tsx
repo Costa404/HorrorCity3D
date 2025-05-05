@@ -1,11 +1,12 @@
 import { Canvas } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
 import MainStreet from "./MainStreet/MainStreet";
-import SkyWithSun from "./Utility/SkyWithSun";
-import CityFloorAndWalls from "./Utility/CityFloorAndWalls";
+import SkyWithSun from "./UiCanvas/SkyWithSun";
+import CityFloorAndWalls from "./UiCanvas/CityFloorAndWalls";
 import Game from "./Game/Game";
-import Cameras from "./Utility/Cameras";
+import Cameras from "./UiCanvas/Cameras";
 import MunitionZone from "./Game/UtilityGame/MunitionZone";
+import { OrbitControls } from "@react-three/drei";
 
 const MyCity = () => {
   // const characterRef = useRef<Group | null>(null);

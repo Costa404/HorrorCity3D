@@ -4,6 +4,7 @@ import { RigidBody } from "@react-three/rapier";
 import * as THREE from "three";
 import StreetLight from "./StreetLightGroup/StreetLight";
 import TrashContainer from "./TrashContainerGroup/TrashContainer";
+import { LadderZoneTrigger } from "../../Game/UtilityGame/ClimbingLadder/LadderTrigger";
 
 interface BuildingProps {
   position: [number, number, number];
@@ -31,6 +32,11 @@ const Building: React.FC<BuildingProps> = ({
       <RigidBody colliders="trimesh">
         <primitive object={clonedScene} scale={[3, 3, 3]} ref={meshRef} />
       </RigidBody>
+      <LadderZoneTrigger position={[-21.5, 30, 47]} type="bottom" />
+      <LadderZoneTrigger position={[-21.5, 1.5, 47]} type="top" />
+
+      {/* <LadderTopTrigger position={[-21.5, 30, 47]} />
+      <LadderTopTrigger position={[-21.5, 1.5, 47]} /> */}
       <StreetLight position={[20, 0, 45.5]} rotation={[0, Math.PI * 1.5, 0]} />
       <StreetLight position={[20, 0, 1.5]} rotation={[0, Math.PI * 1.5, 0]} />
       <StreetLight position={[-26, 0, 46.5]} rotation={[0, Math.PI / 2, 0]} />

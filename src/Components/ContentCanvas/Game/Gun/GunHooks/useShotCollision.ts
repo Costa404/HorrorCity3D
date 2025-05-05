@@ -2,17 +2,18 @@ import { useRef } from "react";
 import * as THREE from "three";
 
 import useEnemies from "../../Enemies/EnemyCharacter/Hooks/useEnemies";
-import useShoot from "./useGun";
+import useShoot from "./useShoot";
 import { useItemSwitchStore } from "../../UtilityGame/useItemSwitchStore";
 
 const useShotCollision = (camera: THREE.Camera, scene: THREE.Scene) => {
   const raycaster = useRef(new THREE.Raycaster());
   const { enemies, updateEnemyLife } = useEnemies();
   const { bullets, shoot } = useShoot();
-  const { currentItem } = useItemSwitchStore();
+  const currentItem = useItemSwitchStore((s) => s.currentItem);
 
   const handleShoot = () => {
     if (currentItem === "hands") return;
+
     if (bullets <= 0) {
       const noBullets = new Audio("src/assets/Sounds/noBullets.mp3");
       noBullets
@@ -28,7 +29,7 @@ const useShotCollision = (camera: THREE.Camera, scene: THREE.Scene) => {
 
     const intersects = raycaster.current.intersectObjects(scene.children, true);
 
-    // Lógica para processar a colisão
+    // Lógica para processar a colisao e demage
     for (let hit of intersects) {
       const obj = hit.object;
       // console.log("Objeto atingido:", obj);
@@ -36,6 +37,9 @@ const useShotCollision = (camera: THREE.Camera, scene: THREE.Scene) => {
       if (obj.userData.enemyId) {
         const enemyId = obj.userData.enemyId;
 
+        if (currentItem === "awp") {
+          updateEnemyLife(enemyId, 100);
+        }
         // console.log("Inimigo atingido com ID:", enemyId);
         updateEnemyLife(enemyId, 30);
         break;

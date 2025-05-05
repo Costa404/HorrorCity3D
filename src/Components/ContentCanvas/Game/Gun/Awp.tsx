@@ -36,7 +36,7 @@ const Awp = () => {
     <primitive object={awpGroup.current}>
       <primitive
         object={model}
-        scale={[1, 1, 1]}
+        scale={[1, 1.2, 1]}
         rotation={[0, Math.PI / 2, 0]}
       />
     </primitive>

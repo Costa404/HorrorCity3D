@@ -7,8 +7,10 @@ import Deagle from "../Gun/Deagle";
 import { usePlayerStore } from "../../Camera/FirstPersonCamera/Hooks/usePlayerStore";
 
 const GunAndHandsSwitcher = () => {
-  const { currentItem, setItem } = useItemSwitchStore();
-  const { isAwpZooming } = usePlayerStore();
+  const currentItem = useItemSwitchStore((s) => s.currentItem);
+  const setItem = useItemSwitchStore((s) => s.setItem);
+
+  const isAwpZooming = usePlayerStore((s) => s.isAwpZooming);
 
   useEffect(() => {
     // Early return caso não seja AWP, pois o zoom só é com a AWP

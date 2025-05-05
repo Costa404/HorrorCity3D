@@ -1,13 +1,13 @@
 import { FaRegHand } from "react-icons/fa6";
 import { GiPistolGun, GiSawedOffShotgun } from "react-icons/gi";
 
-import LifeBar from "../LifeBar";
+import LifeBar from "./LifeBar";
 import DisplayBullets from "./DisplayBullets";
-import { useItemSwitchStore } from "../../ContentCanvas/Game/UtilityGame/useItemSwitchStore";
-import awp from "../../../assets/awpIcon.png";
+import { useItemSwitchStore } from "../../../ContentCanvas/Game/UtilityGame/useItemSwitchStore";
 
 const LeftNavbar = () => {
-  const { currentItem, setItem } = useItemSwitchStore();
+  const currentItem = useItemSwitchStore((s) => s.currentItem);
+  const setItem = useItemSwitchStore((s) => s.setItem);
 
   return (
     <div

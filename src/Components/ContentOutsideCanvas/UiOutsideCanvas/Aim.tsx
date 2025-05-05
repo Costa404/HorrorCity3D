@@ -1,7 +1,8 @@
 import { useItemSwitchStore } from "../../ContentCanvas/Game/UtilityGame/useItemSwitchStore";
 
 const Aim = () => {
-  const { currentItem } = useItemSwitchStore();
+  const currentItem = useItemSwitchStore((s) => s.currentItem);
+
   return (
     <>
       {currentItem === "deagle" ? (

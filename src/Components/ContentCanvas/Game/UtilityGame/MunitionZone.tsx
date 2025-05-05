@@ -6,7 +6,7 @@ import { useGunStore } from "../Gun/GunHooks/useGunStore";
 
 const MunitionZone = () => {
   const [getBullets, setGetBullets] = useState(true);
-  const { addBullets } = useGunStore();
+  const addBullets = useGunStore((s) => s.addBullets);
 
   const { scene } = useGLTF("src/assets/bullets.glb");
 

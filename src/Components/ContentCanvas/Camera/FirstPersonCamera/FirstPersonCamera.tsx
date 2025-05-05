@@ -29,6 +29,7 @@ const FirstPersonCamera = () => {
         ref={playerRef}
         position={[110, 1.4, 110]}
         type="dynamic"
+        name="player"
         lockRotations
         mass={1}
       >

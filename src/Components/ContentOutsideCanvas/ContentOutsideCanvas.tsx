@@ -1,18 +1,28 @@
-import LeftNavbar from "./Utility/LeftNavbar";
+import LeftNavbar from "./UiOutsideCanvas/LeftNavbar/LeftNavbar";
 
-import Aim from "./Utility/Aim";
+import Aim from "./UiOutsideCanvas/Aim";
 import { useLife } from "../ContentCanvas/Game/Life/useLife";
-import ZoomOverlay from "./ZoomOverlay";
+import ZoomOverlay from "./UiOutsideCanvas/ZoomOverlay";
 import { usePlayerStore } from "../ContentCanvas/Camera/FirstPersonCamera/Hooks/usePlayerStore";
 import { useItemSwitchStore } from "../ContentCanvas/Game/UtilityGame/useItemSwitchStore";
+import BtnLadder from "./UiOutsideCanvas/BtnLadder";
+import { useLadderControl } from "../ContentCanvas/Game/UtilityGame/ClimbingLadder/useLadderControl";
 
 const ContentOutsideCanvas = () => {
-  const { currentItem } = useItemSwitchStore();
+  const isAwpZooming = usePlayerStore((s) => s.isAwpZooming);
+  const currentItem = useItemSwitchStore((s) => s.currentItem);
+  const { buttonText, setClimbingLadder } = useLadderControl();
+  const handleButtonClick = () => {
+    setClimbingLadder((prev) => !prev);
+  };
+  // console.log("ola");
 
-  const { isAwpZooming } = usePlayerStore();
   useLife();
   return (
     <>
+      {buttonText && (
+        <BtnLadder buttonText={buttonText} onClick={handleButtonClick} />
+      )}
       <Aim />
       <LeftNavbar />
       <ZoomOverlay active={isAwpZooming && currentItem === "awp"} />

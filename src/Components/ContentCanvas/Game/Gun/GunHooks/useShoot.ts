@@ -3,7 +3,8 @@ import { useGunStore } from "./useGunStore";
 import { useState, useRef } from "react";
 
 const useShoot = () => {
-  const { currentItem } = useItemSwitchStore();
+  const currentItem = useItemSwitchStore((s) => s.currentItem);
+
   const bullets = useGunStore((state) => state.bullets);
   const [canShoot, setCanShoot] = useState(true);
   const awpSoundRef = useRef(new Audio("src/assets/Sounds/awp.ogg"));
@@ -26,7 +27,7 @@ const useShoot = () => {
       shotSound.currentTime = 0;
       shotSound.play();
 
-      // bloqueia novos disparos até terminar o som
+      // bloqueia novos disparos até terminar o som e para simular uma awp
       setCanShoot(false);
       setTimeout(() => {
         setCanShoot(true);

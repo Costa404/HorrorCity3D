@@ -6,8 +6,10 @@ import { useItemSwitchStore } from "../../UtilityGame/useItemSwitchStore";
 
 export const useAwpZoom = () => {
   const { camera } = useThree();
-  const { setisAwpZooming, isAwpZooming } = usePlayerStore();
-  const { currentItem } = useItemSwitchStore();
+  // chamar apenas os valores necessários da store
+  const isAwpZooming = usePlayerStore((s) => s.isAwpZooming);
+  const setisAwpZooming = usePlayerStore((s) => s.setisAwpZooming);
+  const currentItem = useItemSwitchStore((s) => s.currentItem);
   const originalFov = useRef<number | null>(null);
 
   useEffect(() => {
