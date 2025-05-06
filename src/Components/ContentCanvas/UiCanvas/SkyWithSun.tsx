@@ -106,7 +106,7 @@ const SkyWithSun = () => {
       </mesh>
 
       {/* Luz ambiente */}
-      <ambientLight intensity={3} color="#ffffff" />
+      <ambientLight intensity={2} color="#ffffff" />
 
       {/* Luz direcional */}
       {/* <directionalLight

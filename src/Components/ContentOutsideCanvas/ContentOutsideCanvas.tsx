@@ -7,8 +7,10 @@ import { usePlayerStore } from "../ContentCanvas/Camera/FirstPersonCamera/Hooks/
 import { useItemSwitchStore } from "../ContentCanvas/Game/UtilityGame/useItemSwitchStore";
 import BtnLadder from "./UiOutsideCanvas/BtnLadder";
 import { useLadderControl } from "../ContentCanvas/Game/UtilityGame/ClimbingLadder/useLadderControl";
+import { useStartGameStore } from "../useStartGameStore";
 
 const ContentOutsideCanvas = () => {
+  const showGameScene = useStartGameStore((s) => s.showGameScene);
   const isAwpZooming = usePlayerStore((s) => s.isAwpZooming);
   const currentItem = useItemSwitchStore((s) => s.currentItem);
   const { buttonText, setClimbingLadder } = useLadderControl();
@@ -19,14 +21,19 @@ const ContentOutsideCanvas = () => {
 
   useLife();
   return (
-    <>
+    <div
+      style={{
+        visibility: showGameScene ? "visible" : "hidden",
+        transition: "visibility 0s 0.5s",
+      }}
+    >
       {buttonText && (
         <BtnLadder buttonText={buttonText} onClick={handleButtonClick} />
       )}
       <Aim />
       <LeftNavbar />
       <ZoomOverlay active={isAwpZooming && currentItem === "awp"} />
-    </>
+    </div>
   );
 };
 

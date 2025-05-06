@@ -6,14 +6,24 @@ import CityFloorAndWalls from "./UiCanvas/CityFloorAndWalls";
 import Game from "./Game/Game";
 import Cameras from "./UiCanvas/Cameras";
 import MunitionZone from "./Game/UtilityGame/MunitionZone";
-import { OrbitControls } from "@react-three/drei";
+import { Html, OrbitControls } from "@react-three/drei";
+import { useStartGameStore } from "../useStartGameStore";
+import MiniMap2D from "./MiniMap2D/MiniMap2D";
 
 const MyCity = () => {
   // const characterRef = useRef<Group | null>(null);
+  const showGameScene = useStartGameStore((state) => state.showGameScene);
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <Canvas camera={{ position: [0, 100, 300], fov: 60 }} shadows>
+      <Canvas
+        camera={{ position: [0, 100, 300], fov: 60 }}
+        shadows
+        style={{
+          visibility: showGameScene ? "visible" : "hidden",
+          transition: "visibility 0s 0.5s",
+        }}
+      >
         <Physics gravity={[0, -9.81, 0]}>
           {/* <Environment files="src/assets/bgMilkyWay.jpg" background /> */}
           <SkyWithSun />
@@ -29,6 +39,7 @@ const MyCity = () => {
 
           <MunitionZone />
         </Physics>
+        <MiniMap2D />
       </Canvas>
     </div>
   );

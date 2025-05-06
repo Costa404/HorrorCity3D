@@ -43,7 +43,7 @@ const StreetLight = ({
     <RigidBody position={position} type="fixed" colliders="cuboid">
       <group ref={groupRef} rotation={rotation}>
         <primitive object={clonedScene} />
-        <pointLight intensity={75} distance={50} decay={2.5} color="#ffffff" />
+        <pointLight intensity={300} distance={50} decay={2.5} color="#ffffff" />
       </group>
     </RigidBody>
   );

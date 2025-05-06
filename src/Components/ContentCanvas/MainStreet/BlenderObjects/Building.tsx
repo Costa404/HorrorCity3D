@@ -29,7 +29,7 @@ const Building: React.FC<BuildingProps> = ({
 
   return (
     <group position={position} rotation={rotation}>
-      <RigidBody colliders="trimesh">
+      <RigidBody colliders="trimesh" type="fixed">
         <primitive object={clonedScene} scale={[3, 3, 3]} ref={meshRef} />
       </RigidBody>
       <LadderZoneTrigger position={[-21.5, 30, 47]} type="bottom" />
