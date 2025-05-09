@@ -20,7 +20,7 @@ export const useMiniMapPlayerPos = ({
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) return;
 
-    ctx.clearRect(0, 0, MAP_SIZE, MAP_SIZE);
+    // ctx.clearRect(0, 0, MAP_SIZE, MAP_SIZE);
 
     ctx.fillStyle = "red";
     ctx.beginPath();

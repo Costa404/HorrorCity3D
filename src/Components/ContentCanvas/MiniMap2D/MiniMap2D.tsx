@@ -1,8 +1,9 @@
 import { useRef } from "react";
 import { useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
-import { useMiniMapPlayerPos } from "./useMiniMapPlayerPos";
-import { useMiniMapBuildings } from "./useMiniMapBuildings";
+import { useMiniMapPlayerPos } from "./usePlayerPosMiniMap";
+import { useEnemyPositionStore } from "../Game/Enemies/EnemyCharacter/Hooks/useEnemyPosStore";
+import { useMiniMapEnemiesPos } from "./useEnemiesPosMiniMap";
 
 const MiniMap2D = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -12,9 +13,19 @@ const MiniMap2D = () => {
   const WORLD_SIZE = 250;
   const scale = MAP_SIZE / WORLD_SIZE;
 
-  // Funções para  os buildings e minimapa
+  // // Funções para  os buildings e minimapa
+  // useMiniMapEnemiesPos({
+  //   canvasRef,
+  //   enemies, // ← Aqui você passa a lista para o hook
+  //   MAP_SIZE,
+  //   scale: scale,
+  // });
+  useMiniMapEnemiesPos({
+    canvasRef,
+    MAP_SIZE,
+    scale,
+  });
 
-  useMiniMapBuildings({ canvasRef, MAP_SIZE, scale });
   useMiniMapPlayerPos({ canvasRef, camera, MAP_SIZE, scale });
   return (
     <Html

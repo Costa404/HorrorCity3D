@@ -1,38 +1,29 @@
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 import { Mesh } from "three";
 import EnemyCharacter from "./EnemyCharacter/EnemyCharacter";
 
-type EnemyCubeProps = {
+type EnemyProps = {
   id: string;
-  position: [number, number, number];
-  onHit: (id: string) => void;
 };
 
-const EnemyCube = ({ id, onHit, position }: EnemyCubeProps) => {
-  const [life, setLife] = useState(100);
+const Enemy = ({ id }: EnemyProps) => {
+  const lifeRef = useRef(100); // Usei useRef para manter o valor sem rerenderização
 
   const takeDamage = (amount: number) => {
-    setLife((prev) => prev - amount);
+    lifeRef.current -= amount; // Atualiza diretamente o valor do ref
   };
-
-  useEffect(() => {
-    if (life <= 0) {
-      onHit(id);
-    }
-  }, [life]);
 
   const handleEnemyCharacterClick = (e: any) => {
     const clickedObject = e.object;
 
     if (clickedObject instanceof Mesh) {
-      takeDamage(30);
+      takeDamage(30); // Aplica dano ao inimigo
     }
   };
 
   return (
     <>
       <EnemyCharacter
-        position={position}
         onClick={handleEnemyCharacterClick}
         enemyId={id}
         onPointerDown={(e) => e.stopPropagation()}
@@ -41,4 +32,4 @@ const EnemyCube = ({ id, onHit, position }: EnemyCubeProps) => {
   );
 };
 
-export default EnemyCube;
+export default Enemy;

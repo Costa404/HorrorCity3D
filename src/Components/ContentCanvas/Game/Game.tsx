@@ -1,36 +1,31 @@
 import { useThree } from "@react-three/fiber";
-import { useEffect } from "react";
-import EnemyCube from "./Enemies/Enemy";
+import { useEffect, useCallback, useRef } from "react";
 import useShotCollision from "./Gun/GunHooks/useShotCollision";
+
+import Enemy from "./Enemies/Enemy";
 
 const Game = () => {
   const { camera, scene } = useThree();
+
   const { handleShoot, enemies } = useShotCollision(camera, scene);
 
-  // console.log("Inimigos vivos:", enemies);
+  const handleMouseDown = useCallback(
+    (e: MouseEvent) => {
+      if (e.button === 0) handleShoot();
+    },
+    [handleShoot]
+  );
 
   useEffect(() => {
-    const handleMouseDown = (e: MouseEvent) => {
-      if (e.button === 0) handleShoot();
-    };
     window.addEventListener("mousedown", handleMouseDown);
     return () => window.removeEventListener("mousedown", handleMouseDown);
-  }, [handleShoot]);
+  }, [handleMouseDown]);
 
   return (
     <>
-      {enemies.map((enemy) => {
-        return (
-          <EnemyCube
-            key={enemy.id}
-            id={enemy.id}
-            position={enemy.position}
-            onHit={(id: string) => {
-              console.log(`${id} morreu (via onHit)`);
-            }}
-          />
-        );
-      })}
+      {enemies.map((enemy) => (
+        <Enemy key={enemy.id} id={enemy.id} />
+      ))}
     </>
   );
 };

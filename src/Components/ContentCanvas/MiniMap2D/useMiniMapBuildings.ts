@@ -1,61 +1,77 @@
-import { useThree } from "@react-three/fiber";
-import { useEffect } from "react";
+// import { useThree } from "@react-three/fiber";
+// import { useEffect } from "react";
 
-interface UseMiniMapBuildingsProps {
-  canvasRef: React.RefObject<HTMLCanvasElement>;
-  MAP_SIZE: number;
-  scale: number;
-}
+// interface UseMiniMapBuildingsProps {
+//   canvasRef: React.RefObject<HTMLCanvasElement>;
+//   MAP_SIZE: number;
+//   scale: number;
+// }
 
-export const useMiniMapBuildings = ({
-  canvasRef,
-  MAP_SIZE,
-  scale,
-}: UseMiniMapBuildingsProps) => {
-  const { scene } = useThree();
+// export const useMiniMapBuildings = ({
+//   canvasRef,
+//   MAP_SIZE,
+//   scale,
+// }: UseMiniMapBuildingsProps) => {
+//   const { scene } = useThree();
 
-  useEffect(() => {
-    const drawMinimap = () => {
-      const canvas = canvasRef.current;
-      if (!canvas) {
-        requestAnimationFrame(drawMinimap); // Espera até que o canvas exista
-        return;
-      }
+//   useEffect(() => {
+//     let animationId: number;
 
-      const ctx = canvas.getContext("2d");
-      if (!ctx) {
-        console.warn("Canvas context não disponível.");
-        return;
-      }
+//     const drawBuildings = () => {
+//       const canvas = canvasRef.current;
+//       if (!canvas) {
+//         animationId = requestAnimationFrame(drawBuildings);
+//         return;
+//       }
 
-      // Fundo do minimapa
-      ctx.fillStyle = "#2a5c2a";
-      ctx.fillRect(1, 1, MAP_SIZE, MAP_SIZE);
+//       const ctx = canvas.getContext("2d");
+//       if (!ctx) return;
 
-      console.log("Objetos na cena:", scene.children.length);
+//       // Limpa o canvas
+//       ctx.clearRect(0, 0, MAP_SIZE, MAP_SIZE);
 
-      scene.children.forEach((obj, index) => {
-        console.log(
-          `Objeto ${index}:`,
-          obj.name || obj.type,
-          obj.position,
-          obj.scale
-        );
+//       // Fundo semi-transparente para debug
+//       ctx.fillStyle = "rgba(30, 60, 30, 0.7)";
+//       ctx.fillRect(0, 0, MAP_SIZE, MAP_SIZE);
 
-        if ((obj as any).isBuilding) {
-          console.log(`Desenhando prédio: ${obj.name || obj.type}`);
+//       // Marcador central (verde)
+//       ctx.fillStyle = "#00ff00";
+//       ctx.fillRect(MAP_SIZE / 2 - 2, MAP_SIZE / 2 - 2, 4, 4);
 
-          ctx.fillStyle = "#777";
-          ctx.fillRect(
-            MAP_SIZE / 2 + (obj.position.x - obj.scale.x / 2) * scale,
-            MAP_SIZE / 2 + (obj.position.z - obj.scale.z / 2) * scale,
-            obj.scale.x * scale,
-            obj.scale.z * scale
-          );
-        }
-      });
-    };
+//       // Debug: mostra os limites do canvas
+//       ctx.strokeStyle = "#ffffff";
+//       ctx.strokeRect(0, 0, MAP_SIZE, MAP_SIZE);
 
-    requestAnimationFrame(drawMinimap);
-  }, [scene.children, canvasRef, MAP_SIZE, scale]);
-};
+//       scene.traverse((obj) => {
+//         if (obj.userData.isBuilding || (obj as any).isBuilding) {
+//           // Cálculo de posição com fallback seguro
+//           const posX = obj.position.x || 0;
+//           const posZ = obj.position.z || 0; // Usamos Z para 3D (não Y)
+
+//           // Cálculo de escala com valores mínimos
+//           const scaleX = Math.max(obj.scale.x || 1, 0.5) * scale * 5; // 5x maior
+//           const scaleZ = Math.max(obj.scale.z || 1, 0.5) * scale * 5;
+
+//           const x = MAP_SIZE / 2 + posX * scale;
+//           const y = MAP_SIZE / 2 + posZ * scale;
+
+//           console.log(`Building at: ${x},${y} | Size: ${scaleX}x${scaleZ}`);
+
+//           // Desenha o edifício
+//           ctx.fillStyle = "#ff3366"; // Rosa forte para visibilidade
+//           ctx.fillRect(x - scaleX / 2, y - scaleZ / 2, scaleX, scaleZ);
+
+//           // Borda branca para contraste
+//           ctx.strokeStyle = "#ffffff";
+//           ctx.lineWidth = 1;
+//           ctx.strokeRect(x - scaleX / 2, y - scaleZ / 2, scaleX, scaleZ);
+//         }
+//       });
+
+//       animationId = requestAnimationFrame(drawBuildings);
+//     };
+
+//     animationId = requestAnimationFrame(drawBuildings);
+//     return () => cancelAnimationFrame(animationId);
+//   }, [scene, canvasRef, MAP_SIZE, scale]);
+// };
