@@ -8,6 +8,7 @@ import { useEffect, useRef } from "react";
 import { usePlayerStore } from "./Hooks/usePlayerStore";
 import { SyncCameraWithPlayer } from "./Hooks/SyncCameraWithPlayer";
 import GunAndHandsSwitcher from "../../Game/UtilityGame/GunAndHandsSwitcher";
+import { Flashlight } from "../../Game/UtilityGame/Flashlight";
 
 const FirstPersonCamera = () => {
   const playerRef = useRef<RapierRigidBody | null>(null);
@@ -18,9 +19,10 @@ const FirstPersonCamera = () => {
 
   useEffect(() => {
     if (playerRef.current) {
+      // Set the reference in the store when it is first available
       setPlayerRef(playerRef);
     }
-  }, [playerRef.current]);
+  }, [setPlayerRef]);
 
   return (
     <>
@@ -40,6 +42,7 @@ const FirstPersonCamera = () => {
           <meshBasicMaterial color="red" wireframe />
         </mesh>
       </RigidBody>
+      <Flashlight />
     </>
   );
 };

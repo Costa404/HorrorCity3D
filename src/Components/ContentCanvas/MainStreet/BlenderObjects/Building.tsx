@@ -47,10 +47,10 @@ const Building: React.FC<BuildingProps> = ({
 
       {/* <LadderTopTrigger position={[-21.5, 30, 47]} />
       <LadderTopTrigger position={[-21.5, 1.5, 47]} /> */}
-      <StreetLight position={[20, 0, 45.5]} rotation={[0, Math.PI * 1.5, 0]} />
-      <StreetLight position={[20, 0, 1.5]} rotation={[0, Math.PI * 1.5, 0]} />
-      <StreetLight position={[-26, 0, 46.5]} rotation={[0, Math.PI / 2, 0]} />
-      <StreetLight position={[-26, 0, 2.5]} rotation={[0, Math.PI / 2, 0]} />
+      <StreetLight position={[18, 0, 45.5]} rotation={[0, Math.PI * 1.5, 0]} />
+      <StreetLight position={[18, 0, 1.5]} rotation={[0, Math.PI * 1.5, 0]} />
+      <StreetLight position={[-24, 0, 46.5]} rotation={[0, Math.PI / 2, 0]} />
+      <StreetLight position={[-24, 0, 2.5]} rotation={[0, Math.PI / 2, 0]} />
       {trashPositions.map((pos, index) => {
         const trashId = `building${buildingIndex}_trash${index}`;
         return (

@@ -54,6 +54,9 @@ const EnemyCharacter = ({ enemyId }: EnemyCharacterProps) => {
       setEnemiesPosition(enemyId, group.current.position);
     }
   });
+  const enemiesArray = Object.values(enemiesPosition).map((pos) => ({
+    position: [pos.x, pos.y, pos.z] as [number, number, number],
+  }));
 
   return <group ref={group} />;
 };

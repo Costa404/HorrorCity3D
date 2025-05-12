@@ -1,37 +1,39 @@
 import { useFrame } from "@react-three/fiber";
 import { RefObject } from "react";
-import * as THREE from "three";
-import { useEnemyPositionStore } from "../Game/Enemies/EnemyCharacter/Hooks/useEnemyPosStore";
 
-interface UseMiniMapEnemiesPosProps {
+import { useEnemyPositionStore } from "../Game/Enemies/EnemyCharacter/Hooks/useEnemyPosStore";
+import { useEnemyStore } from "../Game/Enemies/EnemyCharacter/Hooks/useEnemyStore";
+
+interface MiniMapEnemyPosProps {
   canvasRef: RefObject<HTMLCanvasElement>;
   MAP_SIZE: number;
   scale: number;
 }
 
-export const useMiniMapEnemiesPos = ({
+export const useMiniMapEnemyPos = ({
   canvasRef,
   MAP_SIZE,
   scale,
-}: UseMiniMapEnemiesPosProps) => {
+}: MiniMapEnemyPosProps) => {
   const enemiesPosition = useEnemyPositionStore((s) => s.enemiesPosition);
-  // console.log("enemiesposition", enemiesPosition);
+  const { enemies } = useEnemyStore();
 
   useFrame(() => {
     if (!canvasRef.current) return;
     const ctx = canvasRef.current.getContext("2d");
     if (!ctx) return;
 
-    //  Basta ter um clear em cada canvas
     ctx.clearRect(0, 0, MAP_SIZE, MAP_SIZE);
 
-    // converte o objeto enemiesPosition em um array de objetos
-    const enemiesArray = Object.values(enemiesPosition);
+    Object.entries(enemiesPosition).forEach(([id, pos]) => {
+      const enemy = enemies.find((e) => e.id === id);
+      if (!enemy) return;
 
-    enemiesArray.forEach((enemy) => {
-      const { x, z } = enemy;
+      const { x, z } = pos;
 
-      ctx.fillStyle = "green";
+      // Verde se a life for superior a 50%, amarelo se for menos de 50%. Se tiver 0 simplesmente desaparece.
+      ctx.fillStyle = enemy.Life > 50 ? "green" : "yellow";
+
       ctx.beginPath();
       ctx.arc(
         MAP_SIZE / 2 + x * scale,

@@ -16,6 +16,7 @@ export const useLife = () => {
   const modifyLife = (amount: number) => {
     useLife.current = Math.max(0, Math.min(100, useLife.current + amount));
     updateBar();
+    console.log(`🩸 Vida atual: ${useLife.current}, modificando em: ${amount}`);
 
     if (useLife.current <= 0) {
       console.log("Game Over - no life!");
@@ -25,6 +26,7 @@ export const useLife = () => {
   useEffect(() => {
     useLifeBar.current = document.getElementById("life-bar");
     setRemoveLifeFn(modifyLife);
+    console.log("✅ removeLifeFn foi definido");
   }, []);
 
   return {

@@ -2,7 +2,7 @@ import { useFrame } from "@react-three/fiber";
 import { RefObject } from "react";
 import * as THREE from "three";
 
-interface UseMiniMapPlayerPosProps {
+interface MiniMapPlayerPosProps {
   canvasRef: RefObject<HTMLCanvasElement>;
   camera: THREE.Camera;
   MAP_SIZE: number;
@@ -14,7 +14,7 @@ export const useMiniMapPlayerPos = ({
   camera,
   MAP_SIZE,
   scale,
-}: UseMiniMapPlayerPosProps) => {
+}: MiniMapPlayerPosProps) => {
   useFrame(() => {
     if (!canvasRef.current) return;
     const ctx = canvasRef.current.getContext("2d");

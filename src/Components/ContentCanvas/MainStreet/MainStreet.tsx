@@ -6,6 +6,7 @@ import * as THREE from "three";
 import DemageBuilding from "./BlenderObjects/DemageBuilding";
 
 import AbandonedStand from "./BlenderObjects/AbandonedStand";
+import ProximityDamage from "../Game/Life/ProximityDamage";
 
 const MainStreet = () => {
   const characterRef = useRef<THREE.Group>(null);
@@ -30,6 +31,7 @@ const MainStreet = () => {
       *
       <AbandonedStand />
       <DemageBuilding />
+      <ProximityDamage />
     </group>
   );
 };

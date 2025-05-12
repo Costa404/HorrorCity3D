@@ -12,7 +12,7 @@ const StreetLight = ({
   position = [0, 0, 0],
   rotation = [0, 0, 0],
 }: StreetLightProps) => {
-  const { scene } = useGLTF("src/assets/streetLight.glb");
+  const { scene } = useGLTF("src/assets/light.glb");
   const groupRef = useRef<THREE.Group>(null);
 
   // Clonar o objeto para não modificar a instancia orignal
@@ -43,7 +43,20 @@ const StreetLight = ({
     <RigidBody position={position} type="fixed" colliders="cuboid">
       <group ref={groupRef} rotation={rotation}>
         <primitive object={clonedScene} />
-        <pointLight intensity={300} distance={50} decay={2.5} color="#ffffff" />
+        <pointLight
+          intensity={100}
+          distance={0}
+          decay={2.5}
+          color="#ffffff"
+          position={[0, 3, -4]}
+        />
+        <pointLight
+          intensity={100}
+          distance={0}
+          decay={10}
+          color="#ffffff"
+          position={[0, 10, -4]}
+        />
       </group>
     </RigidBody>
   );

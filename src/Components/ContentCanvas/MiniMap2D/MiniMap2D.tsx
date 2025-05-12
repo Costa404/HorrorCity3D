@@ -2,8 +2,7 @@ import { useRef } from "react";
 import { useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import { useMiniMapPlayerPos } from "./usePlayerPosMiniMap";
-import { useEnemyPositionStore } from "../Game/Enemies/EnemyCharacter/Hooks/useEnemyPosStore";
-import { useMiniMapEnemiesPos } from "./useEnemiesPosMiniMap";
+import { useMiniMapEnemyPos } from "./useEnemyPosMiniMap";
 
 const MiniMap2D = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -20,7 +19,7 @@ const MiniMap2D = () => {
   //   MAP_SIZE,
   //   scale: scale,
   // });
-  useMiniMapEnemiesPos({
+  useMiniMapEnemyPos({
     canvasRef,
     MAP_SIZE,
     scale,

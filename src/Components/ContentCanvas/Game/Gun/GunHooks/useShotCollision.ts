@@ -1,13 +1,16 @@
 import { useRef } from "react";
 import * as THREE from "three";
 
-import useEnemies from "../../Enemies/EnemyCharacter/Hooks/useEnemies";
 import useShoot from "./useShoot";
 import { useItemSwitchStore } from "../../UtilityGame/useItemSwitchStore";
+import { useEnemyStore } from "../../Enemies/EnemyCharacter/Hooks/useEnemyStore";
 
-const useShotCollision = (camera: THREE.Camera, scene: THREE.Scene) => {
+export const useShotCollision = (
+  camera?: THREE.Camera,
+  scene?: THREE.Scene
+) => {
   const raycaster = useRef(new THREE.Raycaster());
-  const { enemies, updateEnemyLife } = useEnemies();
+  const { enemies, updateEnemyLife } = useEnemyStore();
   const { bullets, shoot } = useShoot();
   const currentItem = useItemSwitchStore((s) => s.currentItem);
 
@@ -49,5 +52,3 @@ const useShotCollision = (camera: THREE.Camera, scene: THREE.Scene) => {
 
   return { enemies, handleShoot, bullets };
 };
-
-export default useShotCollision;

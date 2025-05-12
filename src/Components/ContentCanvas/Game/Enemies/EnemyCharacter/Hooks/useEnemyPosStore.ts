@@ -17,7 +17,7 @@ export const useEnemyPositionStore = create<EnemyPositionStore>((set) => ({
     set((state) => ({
       enemiesPosition: {
         ...state.enemiesPosition,
-        [id]: position,
+        [id]: position.clone(), // ← cria uma nova instância para evitar referência compartilhada
       },
     })),
 }));

@@ -1,8 +1,8 @@
 import { useThree } from "@react-three/fiber";
-import { useEffect, useCallback, useRef } from "react";
-import useShotCollision from "./Gun/GunHooks/useShotCollision";
+import { useEffect, useCallback } from "react";
 
 import Enemy from "./Enemies/Enemy";
+import { useShotCollision } from "./Gun/GunHooks/useShotCollision";
 
 const Game = () => {
   const { camera, scene } = useThree();
