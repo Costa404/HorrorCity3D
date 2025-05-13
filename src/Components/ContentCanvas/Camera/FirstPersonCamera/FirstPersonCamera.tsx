@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 import { usePlayerStore } from "./Hooks/usePlayerStore";
 import { SyncCameraWithPlayer } from "./Hooks/SyncCameraWithPlayer";
 import GunAndHandsSwitcher from "../../Game/UtilityGame/GunAndHandsSwitcher";
-import { Flashlight } from "../../Game/UtilityGame/Flashlight";
+import Flashlight from "../../Game/UtilityGame/Flashlight/Flashlight";
 
 const FirstPersonCamera = () => {
   const playerRef = useRef<RapierRigidBody | null>(null);

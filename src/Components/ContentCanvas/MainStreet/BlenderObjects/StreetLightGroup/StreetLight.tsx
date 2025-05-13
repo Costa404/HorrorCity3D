@@ -1,7 +1,8 @@
 import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
-import { useEffect, useMemo, useRef } from "react";
-import * as THREE from "three";
+import { useMemo } from "react";
+import { useStreetLightPosition } from "./useStreetLightPos";
+import { useRandomLightState } from "./useRandomLightState";
 
 interface StreetLightProps {
   position?: [number, number, number];
@@ -13,45 +14,29 @@ const StreetLight = ({
   rotation = [0, 0, 0],
 }: StreetLightProps) => {
   const { scene } = useGLTF("src/assets/light.glb");
-  const groupRef = useRef<THREE.Group>(null);
 
-  // Clonar o objeto para não modificar a instancia orignal
+  // Clonar o objeto para não modificar a instância original
   const clonedScene = useMemo(() => scene.clone(), [scene]);
 
-  useEffect(() => {
-    if (!groupRef.current) return;
+  // Usar o hook de luzes aleatórias
+  const lightsOn = useRandomLightState();
 
-    const lightTarget = clonedScene.getObjectByName("light_point");
-    if (!lightTarget) return;
-
-    const worldPos = new THREE.Vector3();
-    lightTarget.getWorldPosition(worldPos);
-
-    const localPos = worldPos.clone();
-    groupRef.current.worldToLocal(localPos);
-
-    const light = groupRef.current.children.find(
-      (child): child is THREE.PointLight => child.type === "PointLight"
-    );
-    if (light) {
-      // Update the light's position
-      light.position.copy(localPos);
-    }
-  }, [clonedScene]);
+  // Usar o hook de atualização de posição da luz
+  const groupRef = useStreetLightPosition(clonedScene);
 
   return (
     <RigidBody position={position} type="fixed" colliders="cuboid">
       <group ref={groupRef} rotation={rotation}>
         <primitive object={clonedScene} />
         <pointLight
-          intensity={100}
+          intensity={lightsOn ? 100 : 0} // Controla intensidade das luzes sincronizadamente
           distance={0}
           decay={2.5}
           color="#ffffff"
           position={[0, 3, -4]}
         />
         <pointLight
-          intensity={100}
+          intensity={lightsOn ? 100 : 0} // Controla intensidade das luzes sincronizadamente
           distance={0}
           decay={10}
           color="#ffffff"

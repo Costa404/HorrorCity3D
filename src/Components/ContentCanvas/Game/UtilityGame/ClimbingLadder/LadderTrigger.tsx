@@ -35,13 +35,13 @@ export const LadderZoneTrigger = ({
           }
         }}
       >
-        <mesh position={position}>
+        {/* <mesh position={position}>
           <boxGeometry args={[3, 3, 3]} />
           <meshBasicMaterial
             color={type === "bottom" ? "green" : "red"}
             transparent
           />
-        </mesh>
+        </mesh> */}
       </RigidBody>
     </>
   );

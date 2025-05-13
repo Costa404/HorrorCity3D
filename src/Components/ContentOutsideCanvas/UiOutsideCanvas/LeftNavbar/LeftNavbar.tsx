@@ -4,10 +4,13 @@ import { GiPistolGun, GiSawedOffShotgun } from "react-icons/gi";
 import LifeBar from "./LifeBar";
 import DisplayBullets from "./DisplayBullets";
 import { useItemSwitchStore } from "../../../ContentCanvas/Game/UtilityGame/useItemSwitchStore";
+import { IoIosFlashlight } from "react-icons/io";
+import { useFlashlightStore } from "../../../ContentCanvas/Game/UtilityGame/Flashlight/useFlashlightStore";
 
 const LeftNavbar = () => {
   const currentItem = useItemSwitchStore((s) => s.currentItem);
   const setItem = useItemSwitchStore((s) => s.setItem);
+  const isFlashlightOn = useFlashlightStore((s) => s.isFlashlightOn);
 
   return (
     <div
@@ -34,6 +37,11 @@ const LeftNavbar = () => {
         size={30}
         color={currentItem === "hands" ? "white" : "gray"}
         style={{ cursor: "pointer" }}
+      />
+
+      <IoIosFlashlight
+        color={isFlashlightOn === true ? "white" : "gray"}
+        size={30}
       />
 
       <DisplayBullets />
