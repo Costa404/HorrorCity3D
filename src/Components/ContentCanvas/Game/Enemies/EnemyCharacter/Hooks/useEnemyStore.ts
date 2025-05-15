@@ -13,8 +13,12 @@ type EnemyState = {
 export const useEnemyStore = create<EnemyState>((set) => ({
   enemies: [
     { id: "enemy1", Life: 100 },
-    // { id: "enemy2", Life: 100 },
-    // { id: "enemy3", Life: 100 },
+    { id: "enemy2", Life: 100 },
+    { id: "enemy3", Life: 100 },
+    { id: "enemy4", Life: 100 },
+    { id: "enemy5", Life: 100 },
+    { id: "enemy6", Life: 100 },
+    { id: "enemy7", Life: 100 },
   ],
   updateEnemyLife: (enemyId, damage) =>
     set((state) => {

@@ -32,7 +32,7 @@ export const useShotCollision = (
 
     const intersects = raycaster.current.intersectObjects(scene.children, true);
 
-    // Lógica para processar a colisao e demage
+    // Lógica para processar a colisao e damage
     for (let hit of intersects) {
       const obj = hit.object;
       // console.log("Objeto atingido:", obj);

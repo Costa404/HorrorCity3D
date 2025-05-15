@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect } from "react";
+import React, { useRef, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import { RigidBody } from "@react-three/rapier";
 import * as THREE from "three";
@@ -9,7 +9,7 @@ import { LadderZoneTrigger } from "../../Game/UtilityGame/ClimbingLadder/LadderT
 interface BuildingProps {
   position: [number, number, number];
   rotation?: [number, number, number];
-  buildingIndex: number;
+  buildingIndex?: number;
 }
 
 const Building: React.FC<BuildingProps> = ({
@@ -18,16 +18,6 @@ const Building: React.FC<BuildingProps> = ({
   buildingIndex = 0,
 }) => {
   const { scene } = useGLTF("src/assets/building1.glb");
-  const groupRef = useRef<THREE.Group>(null);
-
-  useEffect(() => {
-    if (groupRef.current) {
-      // Marca o grupo e todos os seus filhos como prédios
-      groupRef.current.traverse((child) => {
-        child.userData.isBuilding = true;
-      });
-    }
-  }, []);
 
   const clonedScene = useMemo(() => scene.clone(), [scene]);
   const meshRef = useRef<THREE.Mesh>(null);
@@ -38,7 +28,7 @@ const Building: React.FC<BuildingProps> = ({
   ];
 
   return (
-    <group position={position} rotation={rotation} ref={groupRef}>
+    <group position={position} rotation={rotation}>
       <RigidBody colliders="trimesh" type="fixed">
         <primitive object={clonedScene} scale={[3, 3, 3]} ref={meshRef} />
       </RigidBody>

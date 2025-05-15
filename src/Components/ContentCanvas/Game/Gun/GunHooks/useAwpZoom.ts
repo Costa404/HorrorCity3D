@@ -22,7 +22,7 @@ export const useAwpZoom = () => {
 
       if (!isAwpZooming) {
         originalFov.current = camera.fov;
-        camera.fov = originalFov.current * 0.5;
+        camera.fov = originalFov.current * 0.3;
         camera.updateProjectionMatrix();
       } else {
         if (originalFov.current !== null) {

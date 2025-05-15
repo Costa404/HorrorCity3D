@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
-import MainStreet from "./MainStreet/MainStreet";
+
 import SkyWithSun from "./UiCanvas/SkyWithSun";
 import CityFloorAndWalls from "./UiCanvas/CityFloorAndWalls";
 import Game from "./Game/Game";
@@ -9,7 +9,9 @@ import MunitionZone from "./Game/UtilityGame/MunitionZone";
 
 import { useStartGameStore } from "../useStartGameStore";
 import MiniMap2D from "./MiniMap2D/MiniMap2D";
-import { OrbitControls } from "@react-three/drei";
+import { Environment, OrbitControls } from "@react-three/drei";
+import LeftStreet from "./Streets/LeftStreet";
+import RightStreet from "./Streets/RightStreet";
 
 const MyCity = () => {
   // const characterRef = useRef<Group | null>(null);
@@ -28,15 +30,14 @@ const MyCity = () => {
         <Physics gravity={[0, -9.81, 0]}>
           {/* <Environment files="src/assets/bgMilkyWay.jpg" background /> */}
           <SkyWithSun />
-          {/* <ThirdPersonCamera target={characterRef} /> */}
-          {/* <FirstPersonCamera /> */}
+
           {/* <OrbitControls /> */}
           <Cameras />
 
-          <MainStreet />
+          <LeftStreet />
+          <RightStreet />
           <CityFloorAndWalls />
           <Game />
-          {/* <EnemyCharacter position={[0, 1, 0]} /> */}
 
           <MunitionZone />
         </Physics>

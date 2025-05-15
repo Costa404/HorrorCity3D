@@ -45,6 +45,7 @@ const LeftNavbar = () => {
       />
 
       <DisplayBullets />
+
       <LifeBar />
     </div>
   );

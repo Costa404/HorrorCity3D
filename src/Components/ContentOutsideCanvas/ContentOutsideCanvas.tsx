@@ -8,6 +8,7 @@ import { useItemSwitchStore } from "../ContentCanvas/Game/UtilityGame/useItemSwi
 import BtnLadder from "./UiOutsideCanvas/BtnLadder";
 import { useLadderControl } from "../ContentCanvas/Game/UtilityGame/ClimbingLadder/useLadderControl";
 import { useStartGameStore } from "../useStartGameStore";
+import KilledEnemiesCount from "./UiOutsideCanvas/KilledEnemiesCount";
 
 const ContentOutsideCanvas = () => {
   const showGameScene = useStartGameStore((s) => s.showGameScene);
@@ -33,6 +34,7 @@ const ContentOutsideCanvas = () => {
       <Aim />
       <LeftNavbar />
       <ZoomOverlay active={isAwpZooming && currentItem === "awp"} />
+      <KilledEnemiesCount />
     </div>
   );
 };

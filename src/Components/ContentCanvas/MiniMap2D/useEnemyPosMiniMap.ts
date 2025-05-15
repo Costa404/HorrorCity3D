@@ -32,7 +32,7 @@ export const useMiniMapEnemyPos = ({
       const { x, z } = pos;
 
       // Verde se a life for superior a 50%, amarelo se for menos de 50%. Se tiver 0 simplesmente desaparece.
-      ctx.fillStyle = enemy.Life > 50 ? "green" : "yellow";
+      ctx.fillStyle = enemy.Life > 50 ? "red" : "yellow";
 
       ctx.beginPath();
       ctx.arc(

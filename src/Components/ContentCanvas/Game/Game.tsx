@@ -3,6 +3,7 @@ import { useEffect, useCallback } from "react";
 
 import Enemy from "./Enemies/Enemy";
 import { useShotCollision } from "./Gun/GunHooks/useShotCollision";
+import ProximityDamage from "./Life/ProximityDamage";
 
 const Game = () => {
   const { camera, scene } = useThree();
@@ -23,6 +24,7 @@ const Game = () => {
 
   return (
     <>
+      <ProximityDamage />
       {enemies.map((enemy) => (
         <Enemy key={enemy.id} id={enemy.id} />
       ))}

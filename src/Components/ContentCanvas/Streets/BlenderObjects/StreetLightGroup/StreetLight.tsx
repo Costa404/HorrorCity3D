@@ -19,7 +19,7 @@ const StreetLight = ({
   const clonedScene = useMemo(() => scene.clone(), [scene]);
 
   // Usar o hook de luzes aleatórias
-  const lightsOn = useRandomLightState();
+  // const lightsOn = useRandomLightState();
 
   // Usar o hook de atualização de posição da luz
   const groupRef = useStreetLightPosition(clonedScene);
@@ -29,14 +29,16 @@ const StreetLight = ({
       <group ref={groupRef} rotation={rotation}>
         <primitive object={clonedScene} />
         <pointLight
-          intensity={lightsOn ? 100 : 0} // Controla intensidade das luzes sincronizadamente
+          // intensity={lightsOn ? 100 : 0} // Controla intensidade das luzes sincronizadamente
+          intensity={100}
           distance={0}
           decay={2.5}
           color="#ffffff"
           position={[0, 3, -4]}
         />
         <pointLight
-          intensity={lightsOn ? 100 : 0} // Controla intensidade das luzes sincronizadamente
+          // intensity={lightsOn ? 100 : 0} // Controla intensidade das luzes sincronizadamente
+          intensity={100}
           distance={0}
           decay={10}
           color="#ffffff"

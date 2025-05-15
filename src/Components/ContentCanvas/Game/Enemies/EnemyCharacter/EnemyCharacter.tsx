@@ -58,7 +58,7 @@ const EnemyCharacter = ({ enemyId }: EnemyCharacterProps) => {
     position: [pos.x, pos.y, pos.z] as [number, number, number],
   }));
 
-  return <group ref={group} />;
+  return <group ref={group} scale={[2, 2, 2]} />;
 };
 
 export default EnemyCharacter;

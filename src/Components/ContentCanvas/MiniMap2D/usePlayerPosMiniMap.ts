@@ -22,7 +22,7 @@ export const useMiniMapPlayerPos = ({
 
     // ctx.clearRect(0, 0, MAP_SIZE, MAP_SIZE);
 
-    ctx.fillStyle = "red";
+    ctx.fillStyle = "green";
     ctx.beginPath();
     ctx.arc(
       MAP_SIZE / 2 + camera.position.x * scale,
